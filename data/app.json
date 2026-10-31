@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-10-31T04:14:33Z",
+    "updatedAt": "2026-10-31T12:40:00Z",
     "note": "成人之美活动系统 · 初始数据"
   },
   "members": [
@@ -43,5 +43,51 @@
     }
   ],
   "records": [],
-  "files": []
+  "files": [
+    {
+      "name": "成人之美-活动SOP整理版-20260924.docx",
+      "label": "SOP（整理版）· Word",
+      "path": "files/成人之美-活动SOP整理版-20260924.docx",
+      "category": "SOP 与制度",
+      "size": 44139,
+      "ext": "docx",
+      "uploadedAt": "2026-10-31"
+    },
+    {
+      "name": "成人之美-活动SOP-极简版.html",
+      "label": "SOP 极简版（网页源文件）",
+      "path": "files/成人之美-活动SOP-极简版.html",
+      "category": "SOP 与制度",
+      "size": 12671,
+      "ext": "html",
+      "uploadedAt": "2026-10-31"
+    },
+    {
+      "name": "友友碰头会-内测三件套-20261031.docx",
+      "label": "内测三件套（签到/流程/反馈）",
+      "path": "files/友友碰头会-内测三件套-20261031.docx",
+      "category": "模板表单",
+      "size": 41539,
+      "ext": "docx",
+      "uploadedAt": "2026-10-31"
+    },
+    {
+      "name": "签到表-空白模板.docx",
+      "label": "签到表空白模板",
+      "path": "files/签到表-空白模板.docx",
+      "category": "模板表单",
+      "size": 4498,
+      "ext": "docx",
+      "uploadedAt": "2026-10-31"
+    },
+    {
+      "name": "成人之美-介绍1.0.pdf",
+      "label": "成人之美介绍 1.0",
+      "path": "files/成人之美-介绍1.0.pdf",
+      "category": "文档",
+      "size": 3571492,
+      "ext": "pdf",
+      "uploadedAt": "2026-10-31"
+    }
+  ]
 }
