@@ -3,160 +3,272 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>成人之美 · 活动系统</title>
+<title>成人之美 · 深源青创</title>
 <style>
 :root{
-  --bg:#F8F4EC; --card:#FFFFFF; --ink:#1C1B18; --gray:#6E685E; --light:#9C958A;
-  --line:#E4DED2; --line2:#CFC8BC; --gold:#A06A24; --gold-soft:#F6EDDD;
-  --green:#2F6E62; --red:#A4453B;
+  --ink:#0B0B0C; --ink-2:#17171A; --paper:#FFFFFF; --bg:#F4F3F0;
+  --gray:#6B675F; --light:#9A958B; --line:#E5E2DA; --line-dark:#2A2A2C;
+  --gold:#A8722A; --gold-soft:#F6EDDD;
+  --max:1120px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);font:14px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;padding:0 20px 60px}
-.wrap{max-width:1080px;margin:0 auto}
-header{display:flex;align-items:center;gap:24px;padding:22px 0 14px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.brand{display:flex;flex-direction:column;gap:2px;margin-right:auto}
-.brand b{font-size:17px;letter-spacing:.02em}
-.brand span{font-size:11px;color:var(--light);letter-spacing:.22em}
-nav{display:flex;gap:6px;flex-wrap:wrap}
-nav a{font-size:13px;color:var(--gray);text-decoration:none;padding:7px 12px;border-radius:9px}
-nav a.on{background:#fff;border:1px solid var(--line);color:var(--ink)}
-nav a:hover{color:var(--ink)}
-.admin-btn{font:inherit;font-size:12.5px;padding:8px 14px;border-radius:9px;border:1px solid var(--line2);background:#fff;color:var(--ink);cursor:pointer}
-.admin-btn:hover{background:#FBF8F2}
-.admin-btn.on{border-color:var(--gold);color:var(--gold);background:var(--gold-soft)}
-.hero{padding:34px 0 10px}
-.eyebrow{font-size:11px;letter-spacing:.28em;color:var(--gold)}
-h1{font-size:30px;line-height:1.25;margin:8px 0 6px;font-weight:700}
-.sub{color:var(--gray);font-size:13.5px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:22px 0 26px}
-.stat{background:#fff;padding:16px 18px}
-.stat b{display:block;font-size:26px;font-weight:700;line-height:1.2}
-.stat span{font-size:12px;color:var(--light)}
-section{margin:26px 0}
-.sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
-.sec-head h2{font-size:17px}
-.sec-head .hint{font-size:12px;color:var(--light)}
-.sec-head .spacer{margin-left:auto}
-.btn{font:inherit;font-size:13px;padding:9px 15px;border-radius:10px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
-.btn.ghost{background:#fff;color:var(--ink);border-color:var(--line2)}
-.btn.small{font-size:12px;padding:6px 11px;border-radius:8px}
-.btn:disabled{opacity:.45;cursor:not-allowed}
-.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:0;overflow:hidden}
-table{width:100%;border-collapse:collapse}
-th{font-size:11px;color:var(--gray);font-weight:400;text-align:left;letter-spacing:.08em;padding:11px 14px;border-bottom:1px solid var(--ink);white-space:nowrap}
-td{font-size:13.5px;padding:12px 14px;border-bottom:1px solid var(--line)}
-tr:last-child td{border-bottom:none}
-td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
-.rank{color:var(--light);font-size:12px;width:34px}
-.top1 .rank{color:var(--gold);font-weight:700}
-.tag{display:inline-block;font-size:11px;color:var(--gray);background:#F4F0E7;border-radius:6px;padding:1px 7px;margin-left:6px}
-.pts{font-weight:700;font-variant-numeric:tabular-nums}
-.pts.neg{color:var(--red)}
-.empty{padding:34px 18px;text-align:center;color:var(--light);font-size:13px}
-.empty b{display:block;color:var(--ink);font-size:14px;margin-bottom:4px}
-.list{display:flex;flex-direction:column}
-.row{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line);font-size:13.5px}
-.row:last-child{border-bottom:none}
-.row .grow{flex:1;min-width:0}
-.row small{color:var(--light);font-size:12px}
-.grid-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.act{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
-.act b{font-size:15px}
-.act .meta{color:var(--light);font-size:12px;margin:4px 0 10px}
-.chips{display:flex;gap:6px;flex-wrap:wrap}
-.chip{font-size:11px;padding:2px 8px;border-radius:99px;border:1px solid var(--line);color:var(--gray)}
-.file{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line)}
-.file:last-child{border-bottom:none}
-.file .ic{width:34px;height:34px;border-radius:9px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--gold);flex:none}
-.file a{color:var(--ink);text-decoration:none;font-size:13.5px}
-.file a:hover{text-decoration:underline}
-.notice{border:1px solid var(--line);background:#fff;border-radius:12px;padding:14px 16px;font-size:12.5px;color:var(--gray)}
-.notice b{color:var(--ink)}
-.modal-bg{position:fixed;inset:0;background:rgba(28,27,24,.42);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font:15px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Hiragino Sans GB","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+a{color:inherit}
+::selection{background:var(--ink);color:#fff}
+
+/* ---------- header ---------- */
+header{position:fixed;top:0;left:0;right:0;z-index:40;transition:.35s}
+header .bar{max-width:var(--max);margin:0 auto;padding:18px 28px;display:flex;align-items:center;gap:28px}
+header.scrolled{background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+header.scrolled .brand b, header.scrolled nav a{color:var(--ink)}
+header.scrolled nav a.on{color:var(--gold)}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;margin-right:auto}
+.logo-slot{width:34px;height:34px;border-radius:9px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;flex:none;border:1px solid rgba(255,255,255,.18)}
+.logo-slot img{width:100%;height:100%;object-fit:contain;display:none}
+.logo-slot .mark{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:.02em}
+header.scrolled .logo-slot{border-color:var(--line)}
+.brand b{font-size:14.5px;font-weight:600;color:#fff;letter-spacing:.02em;line-height:1.3}
+.brand small{display:block;font-size:9.5px;letter-spacing:.24em;color:rgba(255,255,255,.5);font-weight:400}
+header.scrolled .brand small{color:var(--light)}
+nav{display:flex;gap:2px;flex-wrap:wrap}
+nav a{font-size:12.5px;color:rgba(255,255,255,.66);text-decoration:none;padding:7px 11px;border-radius:8px;transition:.2s;white-space:nowrap}
+nav a:hover{color:#fff}
+header.scrolled nav a:hover{color:var(--ink)}
+nav a.on{color:#fff;background:rgba(255,255,255,.12)}
+header.scrolled nav a.on{background:transparent;color:var(--gold);font-weight:600}
+.hdr-btn{font:inherit;font-size:12px;padding:7px 13px;border-radius:8px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;cursor:pointer;transition:.2s}
+.hdr-btn:hover{background:rgba(255,255,255,.14)}
+header.scrolled .hdr-btn{border-color:var(--line);color:var(--ink)}
+header.scrolled .hdr-btn:hover{background:#F7F5F0}
+.hdr-btn.on{border-color:var(--gold);color:var(--gold);background:rgba(168,114,42,.08)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:94vh;background:var(--ink);color:#fff;display:flex;align-items:center;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(900px 520px at 72% 18%, rgba(168,114,42,.20), transparent 60%),
+  radial-gradient(700px 500px at 18% 88%, rgba(255,255,255,.06), transparent 60%);}
+.hero::after{content:"";position:absolute;inset:0;opacity:.18;background-image:linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px);background-size:100% 96px}
+.hero .inner{position:relative;z-index:2;width:100%;max-width:var(--max);margin:0 auto;padding:120px 28px 80px}
+.kicker{font-size:10.5px;letter-spacing:.34em;color:rgba(255,255,255,.5);margin-bottom:26px}
+.hero h1{font-size:clamp(56px,9vw,120px);line-height:.96;letter-spacing:-.03em;font-weight:700}
+.hero h1 .thin{display:block;font-weight:300;color:rgba(255,255,255,.42);font-size:.30em;letter-spacing:.14em;margin-top:26px}
+.hero .lede{max-width:520px;margin-top:30px;font-size:15.5px;line-height:1.85;color:rgba(255,255,255,.62)}
+.hero .actions{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
+.btn{font:inherit;font-size:13.5px;padding:13px 22px;border-radius:999px;border:1px solid transparent;background:var(--ink);color:#fff;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:.2s}
+.btn:hover{transform:translateY(-1px)}
+.btn.light{background:#fff;color:var(--ink)}
+.btn.ghost{background:transparent;border-color:rgba(255,255,255,.26);color:#fff}
+.btn.ghost:hover{background:rgba(255,255,255,.1)}
+.btn.small{font-size:12px;padding:8px 14px}
+.hero .meta{position:absolute;left:0;right:0;bottom:34px;z-index:2}
+.hero .meta .wrap{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.38);letter-spacing:.14em}
+.scroll-hint{position:absolute;right:28px;bottom:110px;z-index:2;font-size:10px;letter-spacing:.3em;color:rgba(255,255,255,.35);writing-mode:vertical-rl}
+
+/* ---------- sections ---------- */
+main{background:var(--paper)}
+.band{background:var(--bg)}
+section.pad{padding:104px 0}
+.shead{margin-bottom:44px}
+.shead .lab{font-size:10.5px;letter-spacing:.3em;color:var(--gold);margin-bottom:14px}
+.shead h2{font-size:clamp(28px,3.4vw,44px);line-height:1.15;letter-spacing:-.02em;font-weight:700}
+.shead p{margin-top:14px;color:var(--gray);max-width:560px;font-size:14.5px}
+.shead.row{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat{padding:34px 0 30px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:none}
+.stat b{display:block;font-size:clamp(34px,4vw,52px);font-weight:700;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:10px;font-size:11.5px;letter-spacing:.16em;color:var(--light)}
+
+/* table */
+.table{width:100%;border-collapse:collapse}
+.table th{font-size:10.5px;letter-spacing:.16em;color:var(--light);font-weight:400;text-align:left;padding:0 0 14px;border-bottom:1px solid var(--ink)}
+.table td{padding:20px 0;border-bottom:1px solid var(--line);font-size:15px}
+.table tr:hover td{background:#FAF9F6}
+.table .rank{width:64px;color:var(--light);font-size:12px;font-variant-numeric:tabular-nums}
+.table .top .rank{color:var(--gold);font-weight:600}
+.table .num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.table .neg{color:#A4453B}
+.tag{display:inline-block;font-size:10.5px;color:var(--gray);border:1px solid var(--line);border-radius:999px;padding:1px 8px;margin-left:8px;vertical-align:1px}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;transition:.25s}
+.card:hover{border-color:#D3CEC3;transform:translateY(-2px)}
+.card .no{font-size:10.5px;letter-spacing:.24em;color:var(--gold);margin-bottom:18px}
+.card h3{font-size:17.5px;font-weight:600;line-height:1.4;letter-spacing:-.01em}
+.card p{margin-top:10px;font-size:13px;color:var(--gray);line-height:1.75}
+.card .foot{margin-top:22px;font-size:11.5px;color:var(--light)}
+
+/* file list */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.filters button{font:inherit;font-size:12px;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--gray);cursor:pointer}
+.filters button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.files{border-top:1px solid var(--ink)}
+.file{display:flex;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.file .ic{width:40px;height:40px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:9.5px;letter-spacing:.06em;color:var(--gray);flex:none;font-weight:600}
+.file .info{flex:1;min-width:0}
+.file .info b{font-size:14.5px;font-weight:500;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file .info small{color:var(--light);font-size:11.5px}
+.file .go{font-size:12px;color:var(--gray);text-decoration:none;border:1px solid var(--line);padding:7px 13px;border-radius:999px;white-space:nowrap}
+.file .go:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* sop */
+.sop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.sop-col{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px}
+.sop-col h3{font-size:13px;letter-spacing:.14em;color:var(--light);font-weight:500;margin-bottom:18px}
+.sop-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:13.5px;line-height:1.6}
+.sop-item:last-child{border-bottom:none}
+.sop-item .t{flex:none;font-size:10.5px;color:var(--gold);letter-spacing:.06em;padding-top:2px;min-width:44px}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:36px}
+.rule{border-top:1px solid var(--ink);padding-top:18px}
+.rule b{display:block;font-size:15px;margin-bottom:6px}
+.rule p{font-size:12.5px;color:var(--gray)}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.about-grid h3{font-size:13px;letter-spacing:.14em;color:var(--light);margin-bottom:16px;font-weight:500}
+.about-grid p{font-size:13.5px;color:var(--gray);margin-bottom:10px;line-height:1.8}
+.about-grid ol{padding-left:18px;font-size:13.5px;color:var(--gray);line-height:1.9}
+.about-grid a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.notice{border-left:2px solid var(--gold);padding:2px 0 2px 16px;font-size:12.5px;color:var(--gray);margin-top:18px}
+
+/* empty */
+.empty{padding:64px 0;text-align:center;color:var(--light);font-size:13.5px}
+.empty b{display:block;color:var(--ink);font-size:16px;margin-bottom:6px;font-weight:600}
+
+/* modal */
+.modal-bg{position:fixed;inset:0;background:rgba(11,11,12,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px;z-index:80}
 .modal-bg.show{display:flex}
-.modal{background:#fff;border-radius:16px;width:100%;max-width:460px;padding:22px 22px 18px;max-height:88vh;overflow:auto}
-.modal h3{font-size:16px;margin-bottom:4px}
-.modal p.hint{font-size:12px;color:var(--light);margin-bottom:14px}
-label{display:block;font-size:12px;color:var(--gray);margin:10px 0 4px}
-input[type=text],input[type=password],input[type=date],select,textarea{width:100%;font:inherit;font-size:13.5px;padding:9px 11px;border:1px solid var(--line2);border-radius:9px;background:#fff;color:var(--ink)}
-textarea{min-height:90px;resize:vertical}
-.modal .actions{display:flex;gap:10px;margin-top:16px}
-.modal .actions .btn{flex:1}
-.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:13px;padding:10px 16px;border-radius:10px;opacity:0;pointer-events:none;transition:.2s;z-index:60;max-width:80vw}
-.toast.show{opacity:1}
-.toast.err{background:var(--red)}
-footer{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--light);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
-@media(max-width:760px){
+.modal{background:#fff;border-radius:20px;width:100%;max-width:480px;padding:30px;max-height:88vh;overflow:auto}
+.modal h3{font-size:19px;letter-spacing:-.01em}
+.modal p.hint{font-size:12px;color:var(--light);margin:8px 0 18px;line-height:1.7}
+label{display:block;font-size:11.5px;color:var(--gray);margin:14px 0 6px;letter-spacing:.04em}
+input[type=text],input[type=password],input[type=date],select,textarea{width:100%;font:inherit;font-size:14px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink)}
+textarea{min-height:100px;resize:vertical}
+.modal .actions{display:flex;gap:10px;margin-top:24px}
+.modal .actions .btn{flex:1;justify-content:center}
+.toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,10px);background:var(--ink);color:#fff;font-size:13px;padding:13px 20px;border-radius:12px;opacity:0;pointer-events:none;transition:.25s;z-index:90;max-width:80vw}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.err{background:#8E3B32}
+
+/* footer */
+footer{background:var(--ink);color:rgba(255,255,255,.5);padding:64px 0 40px}
+footer .top{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-start}
+footer .brand b{color:#fff}
+footer .brand small{color:rgba(255,255,255,.4)}
+footer .cols{display:flex;gap:60px;flex-wrap:wrap}
+footer h4{font-size:10.5px;letter-spacing:.22em;color:rgba(255,255,255,.35);font-weight:400;margin-bottom:12px}
+footer a{display:block;font-size:12.5px;color:rgba(255,255,255,.62);text-decoration:none;margin-bottom:8px}
+footer a:hover{color:#fff}
+footer .base{margin-top:44px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;font-size:11px;flex-wrap:wrap;gap:8px}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:900px){
   .stats{grid-template-columns:repeat(2,1fr)}
-  .grid-cards{grid-template-columns:1fr}
-  h1{font-size:24px}
-  header{gap:12px}
+  .stat{border-bottom:1px solid var(--line)}
+  .cards,.sop-grid,.rules{grid-template-columns:1fr}
+  .about-grid{grid-template-columns:1fr;gap:36px}
+  section.pad{padding:72px 0}
+  .hero{min-height:88vh}
+  nav{order:3;width:100%;overflow-x:auto;padding-bottom:4px}
+  header .bar{padding:14px 20px;gap:14px}
+  .scroll-hint{display:none}
 }
-@media print{ body{background:#fff} .admin-btn,nav,footer{display:none} }
+@media print{ header,footer,.hero .actions{display:none} .hero{min-height:auto;background:#fff;color:#000} .hero h1{color:#000} }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="brand"><b>成人之美 · 活动系统</b><span>CHENG REN ZHI MEI · OPS</span></div>
+
+<header id="hdr">
+  <div class="bar">
+    <a class="brand" href="#/">
+      <span class="logo-slot">
+        <img id="logoImg" alt="" src="assets/logo.png" onerror="this.style.display='none';document.getElementById('logoMark').style.display='block'">
+        <span class="mark" id="logoMark">成</span>
+      </span>
+      <b>深源青创 · 成人之美<small>CHENG REN ZHI MEI</small></b>
+    </a>
     <nav id="nav">
+      <a href="#/" data-r="">首页</a>
       <a href="#/board" data-r="board">榜单</a>
       <a href="#/activities" data-r="activities">活动</a>
       <a href="#/members" data-r="members">成员</a>
       <a href="#/files" data-r="files">资料库</a>
+      <a href="#/sop" data-r="sop">SOP</a>
       <a href="#/about" data-r="about">说明</a>
     </nav>
-    <button class="admin-btn" id="adminBtn">管理员登录</button>
-  </header>
+    <button class="hdr-btn" id="adminBtn">管理员登录</button>
+  </div>
+</header>
 
-  <main id="view"></main>
+<main id="view"></main>
 
-  <footer>
-    <span>成人之美 · 后台与技术支持 ｜ 数据与文件存放在 GitHub 仓库（有版本历史）</span>
-    <span id="syncState">—</span>
-  </footer>
-</div>
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <a class="brand" href="#/">
+        <span class="logo-slot"><span class="mark" style="color:#fff">成</span></span>
+        <b>深源青创 · 成人之美<small>CHENG REN ZHI MEI</small></b>
+      </a>
+      <div class="cols">
+        <div><h4>快速进入</h4>
+          <a href="#/board">积分榜</a><a href="#/activities">活动</a><a href="#/files">资料库</a></div>
+        <div><h4>标准</h4>
+          <a href="#/sop">活动 SOP</a>
+          <a href="https://hoolexic-hxl.github.io/crzm-sop/" target="_blank" rel="noopener">SOP 网页版（对外）</a>
+          <a href="#/about">管理员说明</a></div>
+        <div><h4>系统</h4>
+          <a href="https://github.com/hoolexic-hxl/crzm-app" target="_blank" rel="noopener">数据仓库</a>
+          <a href="#/about">隐私说明</a></div>
+      </div>
+    </div>
+    <div class="base">
+      <span>© 2026 深源青创 · 成人之美　　运营后台由知之网络提供</span>
+      <span id="syncState">—</span>
+    </div>
+  </div>
+</footer>
 
-<div class="modal-bg" id="modalBg">
-  <div class="modal" id="modal"></div>
-</div>
+<div class="modal-bg" id="modalBg"><div class="modal" id="modal"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
-/* ================== 配置 ================== */
+/* ================= 配置 ================= */
 const CFG = {
-  owner: 'hoolexic-hxl',
-  repo: 'crzm-app',
-  branch: 'main',
-  dataPath: 'data/app.json',
-  filesDir: 'files',
-  sopUrl: 'https://hoolexic-hxl.github.io/crzm-sop/'
+  owner:'hoolexic-hxl', repo:'crzm-app', branch:'main',
+  dataPath:'data/app.json', filesDir:'files',
+  sopWeb:'https://hoolexic-hxl.github.io/crzm-sop/'
 };
 const API = 'https://api.github.com';
 const TOKEN_KEY = 'crzm-admin-token';
 
-/* ================== 状态 ================== */
-let DATA = { meta:{}, members:[], activities:[], records:[], files:[] };
-let DATA_SHA = null;
+let DATA = {meta:{},members:[],activities:[],records:[],files:[]};
 let TOKEN = localStorage.getItem(TOKEN_KEY) || '';
 let IS_ADMIN = false;
-let BUSY = false;
+let FILE_FILTER = '全部';
+let SYNC_SHA = null;
 
 const $ = (s, el=document) => el.querySelector(s);
-const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const uid = (p) => p + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
-const fmtDate = (d) => d ? d.replace(/-/g, '.') : '';
-const fmtSize = (n) => n > 1048576 ? (n/1048576).toFixed(1)+' MB' : Math.max(1, Math.round(n/1024))+' KB';
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = p => p + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+const fdate = d => d ? d.replace(/-/g,'.') : '';
+const fsize = n => !n ? '' : (n > 1048576 ? (n/1048576).toFixed(1)+' MB' : Math.round(n/1024)+' KB');
 
-function toast(msg, isErr=false){
-  const t = $('#toast');
-  t.textContent = msg;
-  t.className = 'toast show' + (isErr ? ' err' : '');
-  clearTimeout(t._t);
-  t._t = setTimeout(() => t.className = 'toast', 2600);
+function toast(msg, err=false){
+  const t = $('#toast'); t.textContent = msg;
+  t.className = 'toast show' + (err?' err':'');
+  clearTimeout(t._t); t._t = setTimeout(()=>t.className='toast', 2800);
 }
 
-/* ================== 数据读写 ================== */
+/* ================= 数据 ================= */
 async function loadData(){
   const urls = [
     `./${CFG.dataPath}?t=${Date.now()}`,
@@ -168,450 +280,467 @@ async function loadData(){
       if (!r.ok) continue;
       const j = await r.json();
       DATA = Object.assign({meta:{},members:[],activities:[],records:[],files:[]}, j);
-      $('#syncState').textContent = '数据已同步 · ' + new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});
-      return true;
-    }catch(e){ /* try next */ }
+      $('#syncState').textContent = '数据已同步';
+      return;
+    }catch(e){}
   }
-  $('#syncState').textContent = '离线（使用本地缓存）';
-  return false;
+  $('#syncState').textContent = '离线模式';
 }
-
-function ghHeaders(){
-  return { 'Authorization': 'Bearer ' + TOKEN, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
+const ghH = () => ({'Authorization':'Bearer '+TOKEN,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'});
+async function ghSha(path){
+  const r = await fetch(`${API}/repos/${CFG.owner}/${CFG.repo}/contents/${path}?ref=${CFG.branch}`,{headers:ghH()});
+  if (r.status === 404) return null;
+  if (!r.ok) throw new Error('读取失败 '+r.status);
+  return (await r.json()).sha || null;
 }
-
-async function ghGetSha(path){
-  try{
-    const r = await fetch(`${API}/repos/${CFG.owner}/${CFG.repo}/contents/${path}?ref=${CFG.branch}`, {headers: ghHeaders()});
-    if (r.status === 404) return null;
-    if (!r.ok) throw new Error('读取文件信息失败：' + r.status);
-    const j = await r.json();
-    return j.sha || null;
-  }catch(e){ throw e; }
-}
-
-function toBase64(str){
-  const bytes = new TextEncoder().encode(str);
-  let bin = '';
-  bytes.forEach(b => bin += String.fromCharCode(b));
-  return btoa(bin);
-}
-
-async function ghPut(path, base64, message){
-  const sha = await ghGetSha(path);
-  const body = { message, content: base64, branch: CFG.branch };
+const b64 = str => { const b = new TextEncoder().encode(str); let s=''; b.forEach(x=>s+=String.fromCharCode(x)); return btoa(s); };
+async function ghPut(path, dataB64, msg){
+  const sha = await ghSha(path);
+  const body = {message:msg, content:dataB64, branch:CFG.branch};
   if (sha) body.sha = sha;
-  const r = await fetch(`${API}/repos/${CFG.owner}/${CFG.repo}/contents/${path}`, {
-    method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body)
-  });
-  if (!r.ok){
-    const j = await r.json().catch(()=>({}));
-    throw new Error((j.message || '写入失败') + ' (' + r.status + ')');
-  }
-  return r.json();
+  const r = await fetch(`${API}/repos/${CFG.owner}/${CFG.repo}/contents/${path}`,{method:'PUT',headers:ghH(),body:JSON.stringify(body)});
+  if (!r.ok){ const j = await r.json().catch(()=>({})); throw new Error((j.message||'写入失败')+' '+r.status); }
 }
-
-async function saveData(message){
-  await ghPut(CFG.dataPath, toBase64(JSON.stringify(DATA, null, 2)), message || '更新数据');
-  $('#syncState').textContent = '已保存 · ' + new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});
+async function saveData(msg){
+  await ghPut(CFG.dataPath, b64(JSON.stringify(DATA,null,2)), msg||'更新数据');
+  $('#syncState').textContent = '已保存';
 }
-
-/* ================== 管理登录 ================== */
 async function verifyAdmin(){
-  if (!TOKEN) { IS_ADMIN = false; renderAdminBtn(); return; }
+  if (!TOKEN){ IS_ADMIN=false; paintAdmin(); return; }
   try{
-    const r = await fetch(`${API}/repos/${CFG.owner}/${CFG.repo}`, {headers: ghHeaders()});
-    if (!r.ok) throw new Error(r.status === 401 ? 'Token 无效' : '无法访问仓库（' + r.status + '）');
-    const j = await r.json();
-    IS_ADMIN = !!(j.permissions && j.permissions.push);
-    if (!IS_ADMIN) toast('Token 没有写入权限，请联系管理员', true);
-  }catch(e){
-    IS_ADMIN = false;
-    toast(e.message, true);
-  }
-  renderAdminBtn();
+    const r = await fetch(`${API}/repos/${CFG.owner}/${CFG.repo}`,{headers:ghH()});
+    if (!r.ok) throw new Error(r.status===401?'Token 无效':'无法访问仓库 '+r.status);
+    IS_ADMIN = !!(await r.json()).permissions?.push;
+    if (!IS_ADMIN) toast('Token 无写入权限', true);
+  }catch(e){ IS_ADMIN=false; toast(e.message, true); }
+  paintAdmin();
 }
-
-function renderAdminBtn(){
+function paintAdmin(){
   const b = $('#adminBtn');
-  if (IS_ADMIN){ b.textContent = '已登录 · 退出'; b.classList.add('on'); }
-  else { b.textContent = '管理员登录'; b.classList.remove('on'); }
+  b.textContent = IS_ADMIN ? '已登录 · 退出' : '管理员登录';
+  b.classList.toggle('on', IS_ADMIN);
 }
 
-/* ================== 通用 UI ================== */
-function openModal(html){
-  $('#modal').innerHTML = html;
-  $('#modalBg').classList.add('show');
-}
-function closeModal(){ $('#modalBg').classList.remove('show'); $('#modal').innerHTML = ''; }
-$('#modalBg').addEventListener('click', e => { if (e.target.id === 'modalBg') closeModal(); });
+/* ================= 计算 ================= */
+const TYPES = [
+  {type:'signup', points:3, label:'报名 +3'},
+  {type:'attended', points:10, label:'准时到场 +10'},
+  {type:'contribution', points:8, label:'贡献 +8'},
+  {type:'feedback', points:4, label:'复盘反馈 +4'},
+  {type:'noshow', points:-8, label:'报名未到 -8'},
+  {type:'custom', points:0, label:'自定义'}
+];
+const TLABEL = {signup:'报名',attended:'到场',noshow:'未到',contribution:'贡献',feedback:'反馈',custom:'自定义'};
+const pts = id => DATA.records.filter(r=>r.memberId===id).reduce((s,r)=>s+Number(r.points||0),0);
+const attended = id => new Set(DATA.records.filter(r=>r.memberId===id && r.type==='attended').map(r=>r.activityId)).size;
+const thisMonth = () => DATA.activities.filter(a=>(a.date||'').slice(0,7)===new Date().toISOString().slice(0,7)).length;
 
-function guardAdmin(){
-  if (IS_ADMIN) return true;
-  toast('请先登录管理员', true);
-  openLogin();
-  return false;
-}
-
-function openLogin(){
-  openModal(`
-    <h3>管理员登录</h3>
-    <p class="hint">粘贴你的 GitHub 细粒度 Token（只授权本仓库的 Contents 读写）。Token 只保存在本机浏览器，不会上传。</p>
-    <label>GitHub Token</label>
-    <input type="password" id="tk" placeholder="github_pat_..." value="">
-    <div class="actions">
-      <button class="btn ghost" onclick="closeModal()">取消</button>
-      <button class="btn" onclick="doLogin()">验证并保存</button>
-    </div>
-    <p class="hint" style="margin-top:12px">没有 Token？见「说明」页 → 管理员登录步骤（1 分钟生成）。</p>
-  `);
-  setTimeout(()=>$('#tk')?.focus(), 50);
-}
-
-async function doLogin(){
-  const tk = ($('#tk').value || '').trim();
-  if (!tk) return toast('请填写 Token', true);
-  TOKEN = tk;
-  localStorage.setItem(TOKEN_KEY, tk);
-  BUSY = true;
-  await verifyAdmin();
-  BUSY = false;
-  if (IS_ADMIN){ closeModal(); toast('已登录管理员'); render(); }
-}
-
-function logout(){
-  TOKEN = ''; IS_ADMIN = false;
-  localStorage.removeItem(TOKEN_KEY);
-  renderAdminBtn(); render(); toast('已退出管理员');
-}
-
-$('#adminBtn').addEventListener('click', () => IS_ADMIN ? logout() : openLogin());
-
-/* ================== 计算 ================== */
-function memberPoints(id){
-  return DATA.records.filter(r => r.memberId === id).reduce((s, r) => s + Number(r.points || 0), 0);
-}
-function memberAttended(id){
-  return new Set(DATA.records.filter(r => r.memberId === id && r.type === 'attended').map(r => r.activityId)).size;
-}
-function currentMonthActivities(){
-  const m = new Date().toISOString().slice(0,7);
-  return DATA.activities.filter(a => (a.date || '').slice(0,7) === m).length;
-}
-
-/* ================== 页面 ================== */
+/* ================= 页面 ================= */
 function render(){
-  const route = (location.hash || '#/board').replace('#/','') || 'board';
-  document.querySelectorAll('#nav a').forEach(a => a.classList.toggle('on', a.dataset.r === route));
+  const r = (location.hash || '#/').replace('#/','') || '';
+  document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on', a.dataset.r===r));
   const v = $('#view');
-  if (route === 'board') v.innerHTML = viewBoard();
-  else if (route === 'activities') v.innerHTML = viewActivities();
-  else if (route === 'members') v.innerHTML = viewMembers();
-  else if (route === 'files') v.innerHTML = viewFiles();
+  if (r==='') v.innerHTML = viewHome();
+  else if (r==='board') v.innerHTML = viewBoard();
+  else if (r==='activities') v.innerHTML = viewActivities();
+  else if (r==='members') v.innerHTML = viewMembers();
+  else if (r==='files') v.innerHTML = viewFiles();
+  else if (r==='sop') v.innerHTML = viewSop();
   else v.innerHTML = viewAbout();
-  window.scrollTo({top:0});
+  bindReveal(); window.scrollTo({top:0,behavior:'instant'});
+  onScroll();
 }
-window.addEventListener('hashchange', render);
+
+function hero(){
+  return `
+  <section class="hero">
+    <div class="inner">
+      <div class="kicker">深源青创 · 成人之美　/　ACTIVITY SYSTEM</div>
+      <h1>成人之美<span class="thin">以美聚人 · 以创成事</span></h1>
+      <p class="lede">成就事业 · 成就圈层 · 成就家庭 · 成就姻缘。<br>每一场活动都被记录，每一份贡献都被看见。</p>
+      <div class="actions">
+        <a class="btn light" href="#/board">查看积分榜</a>
+        <a class="btn ghost" href="#/sop">活动 SOP</a>
+      </div>
+    </div>
+    <div class="scroll-hint">SCROLL</div>
+    <div class="meta"><div class="wrap">
+      <span>${new Date().getFullYear()} · 深圳 / 潮州 / 汕头</span>
+      <span>运营后台由知之网络提供</span>
+    </div></div>
+  </section>`;
+}
+
+function viewHome(){
+  const ranked = [...DATA.members].sort((a,b)=>pts(b.id)-pts(a.id)).slice(0,3);
+  const recentActs = [...DATA.activities].slice(-3).reverse();
+  return hero() + `
+  <section class="pad"><div class="wrap">
+    <div class="stats">
+      <div class="stat"><b>${DATA.members.length}</b><span>成 员</span></div>
+      <div class="stat"><b>${DATA.activities.length}</b><span>活 动 场 次</span></div>
+      <div class="stat"><b>${thisMonth()}</b><span>本 月 活 动</span></div>
+      <div class="stat"><b>${DATA.records.reduce((s,r)=>s+Number(r.points||0),0)}</b><span>累 计 积 分</span></div>
+    </div>
+  </div></section>
+
+  <section class="pad band"><div class="wrap">
+    <div class="shead row reveal">
+      <div><div class="lab">LEADERBOARD</div><h2>谁在带着大家往前走</h2>
+        <p>积分不是压力，是参与、贡献与复盘的记录。</p></div>
+      <a class="btn small" href="#/board">完整榜单</a>
+    </div>
+    ${ranked.length ? `<table class="table reveal"><thead><tr><th class="rank">排名</th><th>成员</th><th>参与</th><th class="num">积分</th></tr></thead><tbody>
+      ${ranked.map((m,i)=>`<tr class="${i===0?'top':''}"><td class="rank">${String(i+1).padStart(2,'0')}</td>
+      <td><b>${esc(m.nickname||m.name)}</b>${m.group?`<span class="tag">${esc(m.group)}</span>`:''}</td>
+      <td>${attended(m.id)} 场</td><td class="num">${pts(m.id)}</td></tr>`).join('')}
+    </tbody></table>` : `<div class="empty"><b>还没有成员</b>登录管理员后，到「成员」添加</div>`}
+  </div></section>
+
+  <section class="pad"><div class="wrap">
+    <div class="shead row reveal"><div><div class="lab">RECENT</div><h2>最近的活动</h2></div>
+      <a class="btn small" href="#/activities">全部活动</a></div>
+    ${recentActs.length ? `<div class="cards">
+      ${recentActs.map((a,i)=>`<div class="card reveal"><div class="no">${String(i+1).padStart(2,'0')} / ${fdate(a.date)}</div>
+      <h3>${esc(a.title)}</h3><p>${esc(a.place||'地点待定')}</p>
+      <div class="foot">${new Set(DATA.records.filter(r=>r.activityId===a.id).map(r=>r.memberId)).size} 人参与</div></div>`).join('')}
+    </div>` : `<div class="empty"><b>还没有活动</b>登录管理员后新增</div>`}
+  </div></section>
+
+  <section class="pad band"><div class="wrap">
+    <div class="shead reveal"><div class="lab">STANDARD</div><h2>一场活动，照着 SOP 跑</h2>
+      <p>三条铁律、13 个动作、四个岗位 —— 谁来都能接得住。</p></div>
+    <div class="rules reveal">
+      <div class="rule"><b>01　每件事写一个名字</b><p>不写"团队"，写谁。一个名字 = 这件事一定会发生。</p></div>
+      <div class="rule"><b>02　写死时间点</b><p>"16:00 开放签到"，不是"下午签到"。每段之间留 10 分钟缓冲。</p></div>
+      <div class="rule"><b>03　开场前 5 分钟碰头</b><p>全员站一圈，把第一个小时对一遍。</p></div>
+    </div>
+    <a class="btn small" href="#/sop">查看完整 SOP</a>
+  </div></section>`;
+}
 
 function viewBoard(){
-  const ranked = [...DATA.members].sort((a,b) => memberPoints(b.id) - memberPoints(a.id));
-  const total = DATA.records.reduce((s,r)=>s+Number(r.points||0), 0);
-  const rows = ranked.map((m,i) => {
-    const pts = memberPoints(m.id);
-    return `<tr class="${i===0?'top1':''}">
-      <td class="rank">${String(i+1).padStart(2,'0')}</td>
-      <td><b>${esc(m.nickname || m.name)}</b>${m.group?`<span class="tag">${esc(m.group)}</span>`:''}</td>
-      <td>${memberAttended(m.id)} 场</td>
-      <td class="num"><span class="pts ${pts<0?'neg':''}">${pts}</span></td>
-    </tr>`;
-  }).join('');
-  const recent = [...DATA.records].slice(-8).reverse().map(r => {
+  const ranked = [...DATA.members].sort((a,b)=>pts(b.id)-pts(a.id));
+  const rows = ranked.map((m,i)=>`<tr class="${i===0?'top':''}">
+    <td class="rank">${String(i+1).padStart(2,'0')}</td>
+    <td><b>${esc(m.nickname||m.name)}</b>${m.group?`<span class="tag">${esc(m.group)}</span>`:''}</td>
+    <td>${attended(m.id)} 场</td>
+    <td class="num ${pts(m.id)<0?'neg':''}">${pts(m.id)}</td></tr>`).join('');
+  const recent = [...DATA.records].slice(-10).reverse().map(r=>{
     const m = DATA.members.find(x=>x.id===r.memberId);
     const a = DATA.activities.find(x=>x.id===r.activityId);
-    return `<div class="row"><div class="grow"><b>${esc(m? (m.nickname||m.name) : '—')}</b>
-      <span class="tag">${esc(TYPE_LABEL[r.type] || r.type)}</span>
-      <small>${esc(a?a.title:'')}</small></div>
-      <span class="pts ${r.points<0?'neg':''}">${r.points>0?'+':''}${r.points}</span></div>`;
+    return `<div class="file"><div class="ic">${esc(TLABEL[r.type]||'记')}</div>
+      <div class="info"><b>${esc(m?m.nickname||m.name:'—')}</b><small>${esc(a?a.title:'')}</small></div>
+      <span class="num ${r.points<0?'neg':''}" style="font-weight:600">${r.points>0?'+':''}${r.points}</span></div>`;
   }).join('');
-
   return `
-  <div class="hero">
-    <div class="eyebrow">ACTIVITY · LEADERBOARD</div>
-    <h1>成人之美 · 活动榜单</h1>
-    <p class="sub">参与、贡献、复盘都会被记录 —— 积分是为了鼓励持续参与，不是压力。</p>
-  </div>
-  <div class="stats">
-    <div class="stat"><b>${DATA.members.length}</b><span>成员</span></div>
-    <div class="stat"><b>${DATA.activities.length}</b><span>活动场次</span></div>
-    <div class="stat"><b>${currentMonthActivities()}</b><span>本月活动</span></div>
-    <div class="stat"><b>${total}</b><span>累计积分</span></div>
-  </div>
-
-  <section>
-    <div class="sec-head"><h2>积分榜</h2><span class="hint">按累计积分排序</span>
-      ${IS_ADMIN?'<span class="spacer"></span><button class="btn small" onclick="openRecord()">＋ 记分</button>':''}</div>
-    <div class="card">
-      ${DATA.members.length ? `<table><thead><tr><th class="rank">#</th><th>成员</th><th>参与</th><th class="num">积分</th></tr></thead><tbody>${rows}</tbody></table>` :
-        `<div class="empty"><b>还没有成员</b>登录管理员后，到「成员」页添加或批量导入</div>`}
-    </div>
-  </section>
-
-  <section>
-    <div class="sec-head"><h2>最近记录</h2><span class="hint">最新 8 条</span></div>
-    <div class="card">${recent || `<div class="empty"><b>还没有记录</b>每场活动后，把签到 / 贡献录进来</div>`}</div>
-  </section>`;
+  <section class="pad" style="padding-top:140px"><div class="wrap">
+    <div class="shead row reveal"><div><div class="lab">LEADERBOARD</div><h2>积分榜</h2>
+      <p>按累计积分排序 · 共 ${DATA.members.length} 位成员</p></div>
+      ${IS_ADMIN?'<button class="btn small" onclick="openRecord()">＋ 记分</button>':''}</div>
+    ${ranked.length?`<table class="table reveal"><thead><tr><th class="rank">排名</th><th>成员</th><th>参与</th><th class="num">积分</th></tr></thead><tbody>${rows}</tbody></table>`
+      :`<div class="empty"><b>还没有成员</b>登录管理员后添加</div>`}
+    <div class="shead" style="margin-top:80px"><div class="lab">RECORDS</div><h2 style="font-size:24px">最近记录</h2></div>
+    <div style="border-top:1px solid var(--ink)">${recent||'<div class="empty">还没有记录</div>'}</div>
+  </div></section>`;
 }
 
-const TYPE_LABEL = { signup:'报名', attended:'到场', noshow:'未到', contribution:'贡献', feedback:'反馈' };
-const TYPE_PRESET = [
-  { type:'signup', points:3, label:'报名 +3' },
-  { type:'attended', points:10, label:'准时到场 +10' },
-  { type:'contribution', points:8, label:'贡献（主持/协助）+8' },
-  { type:'feedback', points:4, label:'复盘反馈 +4' },
-  { type:'noshow', points:-8, label:'报名未到 -8' },
-  { type:'custom', points:0, label:'自定义' }
-];
-
 function viewActivities(){
-  const cards = DATA.activities.slice().reverse().map(a => {
+  const list = [...DATA.activities].reverse().map(a=>{
     const cnt = new Set(DATA.records.filter(r=>r.activityId===a.id).map(r=>r.memberId)).size;
-    return `<div class="act">
-      <b>${esc(a.title)}</b>
-      <div class="meta">${fmtDate(a.date)}${a.place?' · '+esc(a.place):''}</div>
-      <div class="chips"><span class="chip">${cnt} 人参与</span>
-        ${IS_ADMIN?`<button class="btn small ghost" onclick="openRecord('${a.id}')">记分</button>`:''}</div>
-    </div>`;
+    return `<div class="card reveal"><div class="no">${fdate(a.date)}</div>
+      <h3>${esc(a.title)}</h3><p>${esc(a.place||'地点待定')}</p>
+      <div class="foot">${cnt} 人参与 ${IS_ADMIN?`· <a href="javascript:openRecord('${a.id}')" style="text-decoration:underline">记分</a>`:''}</div></div>`;
   }).join('');
   return `
-  <div class="hero"><div class="eyebrow">ACTIVITIES</div><h1>活动</h1>
-    <p class="sub">每场活动结束后，在这里补记签到与贡献。</p></div>
-  <section>
-    <div class="sec-head"><h2>活动列表</h2><span class="hint">${DATA.activities.length} 场</span>
-      ${IS_ADMIN?'<span class="spacer"></span><button class="btn small" onclick="openActivity()">＋ 新增活动</button>':''}</div>
-    ${DATA.activities.length ? `<div class="grid-cards">${cards}</div>` : `<div class="card"><div class="empty"><b>还没有活动</b>登录管理员后新增</div></div>`}
-  </section>`;
+  <section class="pad" style="padding-top:140px"><div class="wrap">
+    <div class="shead row reveal"><div><div class="lab">ACTIVITIES</div><h2>活动</h2>
+      <p>共 ${DATA.activities.length} 场 · 活动结束后记得补记签到与贡献</p></div>
+      ${IS_ADMIN?'<button class="btn small" onclick="openActivity()">＋ 新增活动</button>':''}</div>
+    ${DATA.activities.length?`<div class="cards">${list}</div>`:`<div class="empty"><b>还没有活动</b>登录管理员后新增</div>`}
+  </div></section>`;
 }
 
 function viewMembers(){
-  const rows = DATA.members.map(m => `<tr>
-    <td><b>${esc(m.nickname || m.name)}</b>${m.nickname && m.name && m.nickname!==m.name?`<small style="color:var(--light)"> · ${esc(m.name)}</small>`:''}</td>
-    <td>${esc(m.group || '')}</td><td>${fmtDate(m.createdAt)}</td>
-    <td class="num">${memberPoints(m.id)}</td></tr>`).join('');
+  const rows = DATA.members.map(m=>`<tr>
+    <td><b>${esc(m.nickname||m.name)}</b>${m.nickname&&m.name&&m.nickname!==m.name?`<span class="tag">${esc(m.name)}</span>`:''}</td>
+    <td>${esc(m.group||'')}</td><td>${fdate(m.createdAt)}</td><td class="num">${pts(m.id)}</td></tr>`).join('');
   return `
-  <div class="hero"><div class="eyebrow">MEMBERS</div><h1>成员</h1>
-    <p class="sub">公开页只展示昵称与积分，不展示手机号等联系方式。</p></div>
-  <section>
-    <div class="sec-head"><h2>成员名单</h2><span class="hint">${DATA.members.length} 人</span>
-      ${IS_ADMIN?'<span class="spacer"></span><button class="btn small ghost" onclick="openImport()">批量导入</button><button class="btn small" onclick="openMember()" style="margin-left:8px">＋ 添加成员</button>':''}</div>
-    <div class="card">${DATA.members.length ? `<table><thead><tr><th>成员</th><th>分组</th><th>加入</th><th class="num">积分</th></tr></thead><tbody>${rows}</tbody></table>` : `<div class="empty"><b>还没有成员</b>登录管理员后添加</div>`}</div>
-  </section>`;
+  <section class="pad" style="padding-top:140px"><div class="wrap">
+    <div class="shead row reveal"><div><div class="lab">MEMBERS</div><h2>成员</h2>
+      <p>公开页只展示昵称和积分，不展示联系方式。</p></div>
+      ${IS_ADMIN?'<div style="display:flex;gap:10px"><button class="btn small ghost" onclick="openImport()">批量导入</button><button class="btn small" onclick="openMember()">＋ 添加成员</button></div>':''}</div>
+    ${DATA.members.length?`<table class="table reveal"><thead><tr><th>成员</th><th>分组</th><th>加入</th><th class="num">积分</th></tr></thead><tbody>${rows}</tbody></table>`
+      :`<div class="empty"><b>还没有成员</b>登录管理员后添加</div>`}
+  </div></section>`;
 }
 
-const CATS = ['表格','文档','海报','照片','其他'];
+const CATS = ['全部','SOP 与制度','模板表单','海报','文档','照片','其他'];
+function catOf(f){ return f.category || '其他'; }
 
 function viewFiles(){
-  const list = DATA.files.slice().reverse().map(f => `<div class="file">
-    <div class="ic">${esc((f.ext||'').toUpperCase().slice(0,4))}</div>
-    <div class="grow"><a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.name)}</a>
-      <div style="display:flex;gap:8px;margin-top:2px"><small>${esc(f.category||'其他')} · ${fmtSize(f.size||0)} · ${fmtDate((f.uploadedAt||'').slice(0,10))}</small></div></div>
-    <a class="btn small ghost" href="${esc(f.url)}" target="_blank" rel="noopener">打开</a>
-  </div>`).join('');
+  const visible = DATA.files.filter(f=>FILE_FILTER==='全部' || catOf(f)===FILE_FILTER);
+  const list = visible.slice().reverse().map(f=>{
+    const href = f.path ? './'+f.path : (f.url||'#');
+    return `<div class="file">
+      <div class="ic">${esc((f.ext||'').toUpperCase().slice(0,4)||'FILE')}</div>
+      <div class="info"><b>${esc(f.name)}</b><small>${esc(catOf(f))} · ${fsize(f.size)} · ${fdate((f.uploadedAt||'').slice(0,10))}</small></div>
+      <a class="go" href="${esc(href)}" target="_blank" rel="noopener">打开</a></div>`;
+  }).join('');
   return `
-  <div class="hero"><div class="eyebrow">FILES</div><h1>资料库</h1>
-    <p class="sub">海报、表格、照片、文档 —— 团队共用，谁打开链接都能下载。</p></div>
-  <section>
-    <div class="sec-head"><h2>全部资料</h2><span class="hint">${DATA.files.length} 个文件</span>
-      ${IS_ADMIN?'<span class="spacer"></span><button class="btn small" onclick="openUpload()">＋ 上传资料</button>':''}</div>
-    <div class="card">${DATA.files.length ? list : `<div class="empty"><b>还没有资料</b>${IS_ADMIN?'点右上角上传第一个文件':'登录管理员后上传'}</div>`}</div>
-    <p class="notice" style="margin-top:12px">说明：文件存放在 GitHub 仓库的 <b>files/</b> 目录，单个文件建议不超过 20MB（图片 / PDF / 表格最合适）。</p>
-  </section>`;
+  <section class="pad" style="padding-top:140px"><div class="wrap">
+    <div class="shead row reveal"><div><div class="lab">FILES</div><h2>资料库</h2>
+      <p>海报、模板、文档、照片 —— 按类别归档，团队共用。</p></div>
+      ${IS_ADMIN?'<button class="btn small" onclick="openUpload()">＋ 上传资料</button>':''}</div>
+    <div class="filters reveal">${CATS.map(c=>`<button class="${c===FILE_FILTER?'on':''}" onclick="FILE_FILTER='${c}';render()">${c}</button>`).join('')}</div>
+    <div class="files reveal">${list || '<div class="empty"><b>这个分类还没有文件</b>登录管理员后上传</div>'}</div>
+    <p class="notice">文件存放在团队仓库的 files 目录；单个文件建议不超过 20MB。公开页面的资料默认公开可下载，请勿上传含个人隐私的材料。</p>
+  </div></section>`;
+}
+
+function viewSop(){
+  const before = [
+    ['T-14','方案定稿：主题 / 时间 / 地点 / 人数上限（大型活动提前 30 天）'],
+    ['T-10','前宣启动：海报 + 社群推送，报名信息统一收'],
+    ['T-7','分工宣贯：行动计划过一遍，一人一岗定到人'],
+    ['T-1','双提醒：给参与者发地址 / 交通 / 开始时间 / 取消规则；物料清点'],
+    ['T-0','提前到位：场地布置完成、签到台就位']
+  ];
+  const during = [
+    ['−60′','志愿者到场：布置收尾，碰头 5 分钟过一遍第一个小时'],
+    ['−15′','开放签到：签到表 + 姓名贴 + 笔，记录到场'],
+    ['0′','开场说明 3 分钟：目标 / 时间安排 / 互动边界 / 积分规则'],
+    ['中段','破冰 → 主题分享或交流 → 自由对接（每段之间留缓冲）'],
+    ['收尾','结束前 15 分钟：合影 + 反馈卡 + 预告下一场']
+  ];
+  const after = [
+    ['T+24h','后宣发布 + 积分录入（签到 / 未到 / 贡献 / 反馈）'],
+    ['T+3d','复盘 15 分钟：定了什么 · 出了什么意外 · 下次只改一条'],
+    ['每周','检查积分榜和本 SOP，把经验沉淀进去']
+  ];
+  const col = (title, items) => `<div class="sop-col reveal"><h3>${title}</h3>
+    ${items.map(([t,x])=>`<div class="sop-item"><span class="t">${t}</span><span>${x}</span></div>`).join('')}</div>`;
+  return `
+  <section class="pad" style="padding-top:140px"><div class="wrap">
+    <div class="shead reveal"><div class="lab">STANDARD · SOP</div><h2>活动 SOP</h2>
+      <p>从筹备到复盘，一页纸跑完一场活动。现场执行以本页为准，另有对外分享版网页与 Word 原件。</p></div>
+    <div class="rules reveal">
+      <div class="rule"><b>01　每件事写一个名字</b><p>不写"团队"，写谁。一个名字 = 这件事一定会发生。</p></div>
+      <div class="rule"><b>02　写死时间点</b><p>时间写死到点，每段之间留 10 分钟缓冲。</p></div>
+      <div class="rule"><b>03　开场前 5 分钟碰头</b><p>全员站一圈，把第一个小时对一遍，临门一脚最防翻车。</p></div>
+    </div>
+    <div class="sop-grid" style="margin-top:40px">
+      ${col('活动前', before)}${col('活动当天', during)}${col('活动后', after)}
+    </div>
+    <div class="shead" style="margin-top:72px"><div class="lab">ROLES</div><h2 style="font-size:24px">当天分工</h2></div>
+    <div class="cards reveal">
+      <div class="card"><div class="no">01</div><h3>主理人 · 1 人</h3><p>总控 + 致辞 + 现场救火。手里拿着这份 SOP。</p></div>
+      <div class="card"><div class="no">02</div><h3>签到 · 1 人</h3><p>名单 + 姓名贴 + 记录到场，迟到与缺席标注。</p></div>
+      <div class="card"><div class="no">03</div><h3>引导与记录 · 1–2 人</h3><p>动线指引、照顾落单的人；拍照片、记要点、回收反馈卡。</p></div>
+    </div>
+    <div class="shead" style="margin-top:72px"><div class="lab">IF THINGS GO WRONG</div><h2 style="font-size:24px">应急预案</h2></div>
+    <div class="files reveal">
+      <div class="file"><div class="ic">人数</div><div class="info"><b>人数不足</b><small>主理人一对一邀请 + 社群再推一波，提前 3 天看报名数</small></div></div>
+      <div class="file"><div class="ic">物料</div><div class="info"><b>物料缺</b><small>现场简化：能借就借、能自制就自制（手工桌卡、纸质计分板）</small></div></div>
+      <div class="file"><div class="ic">场地</div><div class="info"><b>场地变</b><small>提前备好第 2 个免费场地；变更 48 小时前通知参与者</small></div></div>
+      <div class="file"><div class="ic">人员</div><div class="info"><b>志愿者请假</b><small>后备志愿者顶上；实在没人就一人多岗，砍掉最不重要的环节</small></div></div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:40px;flex-wrap:wrap">
+      <a class="btn small" href="${CFG.sopWeb}" target="_blank" rel="noopener">打开对外分享版</a>
+      <a class="btn small ghost" href="#/files">下载 Word / 模板</a>
+    </div>
+  </div></section>`;
 }
 
 function viewAbout(){
   return `
-  <div class="hero"><div class="eyebrow">ABOUT</div><h1>说明</h1>
-    <p class="sub">这是成人之美的活动系统：公开可访问，管理员可维护。</p></div>
-  <section>
-    <div class="sec-head"><h2>谁能看到 / 谁能修改</h2></div>
-    <div class="card" style="padding:18px 20px">
-      <p><b>所有人（拿到链接）</b>：可以查看榜单、活动、成员名单（昵称/分组）、资料库并下载文件。</p>
-      <p style="margin-top:8px"><b>管理员</b>：登录后可新增活动 / 成员、记分、上传资料。</p>
-      <p style="margin-top:8px"><b>隐私</b>：不展示手机号、备注等敏感信息；公开积分仅用于鼓励参与。</p>
+  <section class="pad" style="padding-top:140px"><div class="wrap">
+    <div class="shead reveal"><div class="lab">ABOUT</div><h2>说明</h2>
+      <p>这是深源青创 · 成人之美的活动系统，公开可访问，管理员可维护。</p></div>
+    <div class="about-grid">
+      <div class="reveal">
+        <h3>谁能看到 / 谁能修改</h3>
+        <p><b>所有人（拿到链接）</b>：查看榜单、活动、成员名单（昵称/分组）、资料库并下载。</p>
+        <p><b>管理员</b>：登录后可新增活动 / 成员、记分、上传资料。</p>
+        <p><b>隐私</b>：不展示手机号、备注等敏感信息；公开积分仅用于鼓励参与。</p>
+        <p class="notice">数据与文件存放在团队 GitHub 仓库（<a href="https://github.com/${CFG.owner}/${CFG.repo}" target="_blank" rel="noopener">${CFG.owner}/${CFG.repo}</a>），每次保存即一次提交，可回溯。仓库为公开仓库，请勿上传含个人隐私的材料。</p>
+      </div>
+      <div class="reveal">
+        <h3>管理员登录（1 分钟）</h3>
+        <ol>
+          <li>打开 <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Fine-grained tokens</a> 新建 Token</li>
+          <li>名称 <b>crzm-app-admin</b>；有效期 90 天或更长</li>
+          <li>Repository access → Only select repositories → <b>${CFG.owner}/${CFG.repo}</b></li>
+          <li>Permissions → Contents: <b>Read and write</b></li>
+          <li>生成后复制 <b>github_pat_…</b>，点右上角「管理员登录」粘贴</li>
+        </ol>
+        <p class="notice">Token 只保存在你本机浏览器，换设备需重新登录一次。</p>
+      </div>
     </div>
-  </section>
-  <section>
-    <div class="sec-head"><h2>管理员登录步骤（1 分钟）</h2></div>
-    <div class="card" style="padding:18px 20px">
-      <ol style="padding-left:18px;color:var(--gray)">
-        <li>打开 <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a></li>
-        <li>Token name 填 <b>crzm-app-admin</b>；Expiration 选 90 天或更长</li>
-        <li>Repository access 选 <b>Only select repositories → hoolexic-hxl/crzm-app</b></li>
-        <li>Permissions → Repository permissions → <b>Contents: Read and write</b>（其余不用给）</li>
-        <li>生成后复制 <b>github_pat_...</b>，回到本页点右上「管理员登录」粘贴</li>
-      </ol>
-      <p style="margin-top:10px;font-size:12px;color:var(--light)">Token 只保存在你本机浏览器；换设备需重新登录一次。</p>
-    </div>
-  </section>
-  <section>
-    <div class="sec-head"><h2>相关链接</h2></div>
-    <div class="card" style="padding:18px 20px">
-      <p>活动 SOP（极简版）：<a href="${CFG.sopUrl}" target="_blank" rel="noopener">${CFG.sopUrl}</a></p>
-      <p style="margin-top:6px">数据仓库：<a href="https://github.com/${CFG.owner}/${CFG.repo}" target="_blank" rel="noopener">github.com/${CFG.owner}/${CFG.repo}</a></p>
-    </div>
-  </section>`;
+  </div></section>`;
 }
 
-/* ================== 弹窗表单 ================== */
+/* ================= 弹窗 ================= */
+function openModal(html){ $('#modal').innerHTML = html; $('#modalBg').classList.add('show'); }
+function closeModal(){ $('#modalBg').classList.remove('show'); $('#modal').innerHTML=''; }
+$('#modalBg').addEventListener('click', e=>{ if(e.target.id==='modalBg') closeModal(); });
+function guard(){ if(IS_ADMIN) return true; toast('请先登录管理员', true); openLogin(); return false; }
+function openLogin(){
+  openModal(`<h3>管理员登录</h3>
+    <p class="hint">粘贴 GitHub 细粒度 Token（只授权本仓库 Contents 读写）。Token 仅保存在本机浏览器。</p>
+    <label>GitHub Token</label><input type="password" id="tk" placeholder="github_pat_...">
+    <div class="actions"><button class="btn ghost" onclick="closeModal()">取消</button>
+      <button class="btn" onclick="doLogin()">验证并保存</button></div>
+    <p class="hint" style="margin-top:14px">还没有 Token？见「说明」页的 5 步指引。</p>`);
+  setTimeout(()=>$('#tk')?.focus(), 50);
+}
+async function doLogin(){
+  const tk = ($('#tk').value||'').trim();
+  if (!tk) return toast('请填写 Token', true);
+  TOKEN = tk; localStorage.setItem(TOKEN_KEY, tk);
+  await verifyAdmin();
+  if (IS_ADMIN){ closeModal(); render(); toast('已登录管理员'); }
+}
+function logout(){ TOKEN=''; IS_ADMIN=false; localStorage.removeItem(TOKEN_KEY); paintAdmin(); render(); toast('已退出'); }
+$('#adminBtn').addEventListener('click', ()=> IS_ADMIN ? logout() : openLogin());
+
+/* ---------- 表单 ---------- */
 function openMember(){
-  if (!guardAdmin()) return;
+  if(!guard()) return;
   openModal(`<h3>添加成员</h3><p class="hint">昵称用于公开榜单展示。</p>
     <label>昵称 / 姓名</label><input type="text" id="mNick" placeholder="例如：荔">
-    <label>真实姓名（选填，不公开）</label><input type="text" id="mName" placeholder="例如：黄煦荔">
+    <label>真实姓名（选填，不公开）</label><input type="text" id="mName">
     <label>分组</label><input type="text" id="mGroup" placeholder="例如：统筹组 / 第 20 期">
     <div class="actions"><button class="btn ghost" onclick="closeModal()">取消</button>
-    <button class="btn" onclick="addMember()">保存</button></div>`);
+      <button class="btn" onclick="addMember()">保存</button></div>`);
   setTimeout(()=>$('#mNick')?.focus(),50);
 }
 async function addMember(){
   const nick = ($('#mNick').value||'').trim();
-  if (!nick) return toast('请填写昵称', true);
-  DATA.members.push({ id: uid('m'), nickname: nick, name: ($('#mName').value||'').trim(), group: ($('#mGroup').value||'').trim(), createdAt: new Date().toISOString().slice(0,10) });
-  await commit('添加成员：' + nick); closeModal(); render();
+  if(!nick) return toast('请填写昵称', true);
+  DATA.members.push({id:uid('m'), nickname:nick, name:($('#mName').value||'').trim(), group:($('#mGroup').value||'').trim(), createdAt:new Date().toISOString().slice(0,10)});
+  await commit('添加成员：'+nick); closeModal(); render();
 }
-
 function openImport(){
-  if (!guardAdmin()) return;
+  if(!guard()) return;
   openModal(`<h3>批量导入成员</h3><p class="hint">每行一个：昵称,真实姓名,分组（后两项可留空）</p>
-    <textarea id="imp" placeholder="金湖,K,统筹组&#10;Kaka Lin,,统筹组&#10;荔,黄煦荔,统筹组"></textarea>
+    <textarea id="imp" placeholder="金湖,K,统筹组&#10;Kaka Lin,,统筹组"></textarea>
     <div class="actions"><button class="btn ghost" onclick="closeModal()">取消</button>
-    <button class="btn" onclick="doImport()">导入</button></div>`);
+      <button class="btn" onclick="doImport()">导入</button></div>`);
 }
 async function doImport(){
   const lines = ($('#imp').value||'').split('\n').map(s=>s.trim()).filter(Boolean);
-  if (!lines.length) return toast('没有内容', true);
-  lines.forEach(l => {
-    const [nick, name, group] = l.split(/[,，]/).map(s=>(s||'').trim());
-    if (!nick) return;
-    DATA.members.push({ id: uid('m'), nickname: nick, name: name||'', group: group||'', createdAt: new Date().toISOString().slice(0,10) });
+  if(!lines.length) return toast('没有内容', true);
+  lines.forEach(l=>{
+    const [nick,name,group] = l.split(/[,，]/).map(s=>(s||'').trim());
+    if(!nick) return;
+    DATA.members.push({id:uid('m'), nickname:nick, name:name||'', group:group||'', createdAt:new Date().toISOString().slice(0,10)});
   });
   await commit('批量导入成员'); closeModal(); render();
 }
-
 function openActivity(){
-  if (!guardAdmin()) return;
+  if(!guard()) return;
   openModal(`<h3>新增活动</h3>
     <label>活动名称</label><input type="text" id="aTitle" placeholder="例如：友友碰头会 · 第二期">
     <label>日期</label><input type="date" id="aDate" value="${new Date().toISOString().slice(0,10)}">
     <label>地点（选填）</label><input type="text" id="aPlace">
     <div class="actions"><button class="btn ghost" onclick="closeModal()">取消</button>
-    <button class="btn" onclick="addActivity()">保存</button></div>`);
+      <button class="btn" onclick="addActivity()">保存</button></div>`);
   setTimeout(()=>$('#aTitle')?.focus(),50);
 }
 async function addActivity(){
   const t = ($('#aTitle').value||'').trim();
-  if (!t) return toast('请填写活动名称', true);
-  DATA.activities.push({ id: uid('a'), title: t, date: $('#aDate').value, place: ($('#aPlace').value||'').trim(), createdAt: new Date().toISOString().slice(0,10) });
-  await commit('新增活动：' + t); closeModal(); render();
+  if(!t) return toast('请填写活动名称', true);
+  DATA.activities.push({id:uid('a'), title:t, date:$('#aDate').value, place:($('#aPlace').value||'').trim(), createdAt:new Date().toISOString().slice(0,10)});
+  await commit('新增活动：'+t); closeModal(); render();
 }
-
 function openRecord(activityId){
-  if (!guardAdmin()) return;
-  if (!DATA.members.length) return toast('先添加成员', true);
-  if (!DATA.activities.length) return toast('先添加活动', true);
-  const acts = DATA.activities.slice().reverse().map(a=>`<option value="${a.id}" ${a.id===activityId?'selected':''}>${esc(a.title)} · ${fmtDate(a.date)}</option>`).join('');
+  if(!guard()) return;
+  if(!DATA.members.length) return toast('先添加成员', true);
+  if(!DATA.activities.length) return toast('先添加活动', true);
+  const acts = [...DATA.activities].reverse().map(a=>`<option value="${a.id}" ${a.id===activityId?'selected':''}>${esc(a.title)} · ${fdate(a.date)}</option>`).join('');
   const mems = DATA.members.map(m=>`<option value="${m.id}">${esc(m.nickname||m.name)}</option>`).join('');
-  const types = TYPE_PRESET.map((t,i)=>`<option value="${i}">${esc(t.label)}</option>`).join('');
   openModal(`<h3>记一条积分</h3><p class="hint">选择活动、成员与类型即可。</p>
     <label>活动</label><select id="rAct">${acts}</select>
     <label>成员</label><select id="rMem">${mems}</select>
-    <label>类型</label><select id="rType" onchange="syncPts()">${types}</select>
+    <label>类型</label><select id="rType" onchange="syncPts()">${TYPES.map((t,i)=>`<option value="${i}">${esc(t.label)}</option>`).join('')}</select>
     <label>分值</label><input type="text" id="rPts" value="3">
     <label>备注（选填，不公开）</label><input type="text" id="rNote">
     <div class="actions"><button class="btn ghost" onclick="closeModal()">取消</button>
-    <button class="btn" onclick="addRecord()">保存</button></div>`);
+      <button class="btn" onclick="addRecord()">保存</button></div>`);
 }
-function syncPts(){
-  const i = Number($('#rType').value);
-  $('#rPts').value = TYPE_PRESET[i].points;
-}
+function syncPts(){ $('#rPts').value = TYPES[Number($('#rType').value)].points; }
 async function addRecord(){
-  const mi = $('#rType').value;
-  const preset = TYPE_PRESET[Number(mi)];
-  const pts = Number(($('#rPts').value||'0').trim());
-  if (isNaN(pts)) return toast('分值无效', true);
-  DATA.records.push({
-    id: uid('r'), activityId: $('#rAct').value, memberId: $('#rMem').value,
-    type: preset.type, points: pts, note: ($('#rNote').value||'').trim(),
-    createdAt: new Date().toISOString()
-  });
-  await commit('记分：' + preset.label); closeModal(); render();
+  const preset = TYPES[Number($('#rType').value)];
+  const val = Number(($('#rPts').value||'0').trim());
+  if (isNaN(val)) return toast('分值无效', true);
+  DATA.records.push({id:uid('r'), activityId:$('#rAct').value, memberId:$('#rMem').value,
+    type:preset.type, points:val, note:($('#rNote').value||'').trim(), createdAt:new Date().toISOString()});
+  await commit('记分：'+preset.label); closeModal(); render();
 }
-
 function openUpload(){
-  if (!guardAdmin()) return;
+  if(!guard()) return;
   openModal(`<h3>上传资料</h3><p class="hint">图片 / PDF / 表格 / 文档，单个 ≤ 20MB。</p>
     <label>选择文件</label><input type="file" id="upFile" multiple>
-    <label>分类</label><select id="upCat">${CATS.map(c=>`<option>${c}</option>`).join('')}</select>
+    <label>分类</label><select id="upCat">${CATS.filter(c=>c!=='全部').map(c=>`<option>${c}</option>`).join('')}</select>
     <div class="actions"><button class="btn ghost" onclick="closeModal()">取消</button>
-    <button class="btn" id="upBtn" onclick="doUpload()">上传</button></div>
-    <p class="hint" id="upHint" style="margin-top:8px"></p>`);
+      <button class="btn" id="upBtn" onclick="doUpload()">上传</button></div>
+    <p class="hint" id="upHint" style="margin-top:10px"></p>`);
 }
-async function fileToB64(file){
-  const buf = await file.arrayBuffer();
-  let bin = '';
-  const bytes = new Uint8Array(buf);
-  const chunk = 0x8000;
-  for (let i = 0; i < bytes.length; i += chunk){
-    bin += String.fromCharCode.apply(null, bytes.subarray(i, i+chunk));
-  }
-  return btoa(bin);
+async function fileB64(file){
+  const buf = new Uint8Array(await file.arrayBuffer());
+  let s=''; const chunk=0x8000;
+  for(let i=0;i<buf.length;i+=chunk) s += String.fromCharCode.apply(null, buf.subarray(i,i+chunk));
+  return btoa(s);
 }
-function safeName(n){
-  return n.replace(/[\/\\:*?"<>|]/g, '_').replace(/\s+/g, '-');
-}
+const safeName = n => n.replace(/[\/\\:*?"<>|]/g,'_').replace(/\s+/g,'-');
 async function doUpload(){
-  const input = $('#upFile');
-  const files = Array.from(input.files || []);
-  if (!files.length) return toast('请选择文件', true);
-  const cat = $('#upCat').value || '其他';
-  const hint = $('#upHint');
+  const files = Array.from($('#upFile').files||[]);
+  if(!files.length) return toast('请选择文件', true);
+  const cat = $('#upCat').value; const hint = $('#upHint');
   $('#upBtn').disabled = true;
-  for (const f of files){
-    if (f.size > 20 * 1024 * 1024){ toast(`${f.name} 超过 20MB，跳过`, true); continue; }
-    hint.textContent = `正在上传 ${f.name} …`;
+  for(const f of files){
+    if(f.size > 20*1024*1024){ toast(f.name+' 超过 20MB，跳过', true); continue; }
+    hint.textContent = '正在上传 '+f.name+' …';
     try{
-      const b64 = await fileToB64(f);
-      const ext = (f.name.split('.').pop() || '').toLowerCase();
+      const data = await fileB64(f);
+      const ext = (f.name.split('.').pop()||'').toLowerCase();
       const path = `${CFG.filesDir}/${Date.now()}-${safeName(f.name)}`;
-      await ghPut(path, b64, '上传资料：' + f.name);
-      const url = `https://cdn.jsdelivr.net/gh/${CFG.owner}/${CFG.repo}@${CFG.branch}/${path}`;
-      DATA.files.push({ name: f.name, path, url, category: cat, size: f.size, ext, uploadedAt: new Date().toISOString() });
-      hint.textContent = `${f.name} 已上传`;
-    }catch(e){
-      toast('上传失败：' + e.message, true);
-      hint.textContent = '上传失败：' + e.message;
-    }
+      await ghPut(path, data, '上传资料：'+f.name);
+      DATA.files.push({name:f.name, path, category:cat, size:f.size, ext, uploadedAt:new Date().toISOString()});
+      hint.textContent = f.name+' 已上传';
+    }catch(e){ toast('上传失败：'+e.message, true); hint.textContent = '失败：'+e.message; }
   }
-  await commit('更新资料清单');
-  $('#upBtn').disabled = false;
-  closeModal(); render();
+  await commit('更新资料清单'); $('#upBtn').disabled=false; closeModal(); render();
+}
+async function commit(msg){
+  try{ await saveData(msg); toast('已保存 · '+msg); }
+  catch(e){ toast('保存失败：'+e.message, true); }
 }
 
-/* ================== 保存 ================== */
-async function commit(message){
-  try{
-    await saveData(message);
-    toast('已保存 · ' + message);
-  }catch(e){
-    toast('保存失败：' + e.message, true);
-  }
+/* ================= 视觉细节 ================= */
+function onScroll(){
+  const h = $('#hdr');
+  const solid = (location.hash||'#/').replace('#/','') !== '';
+  h.classList.toggle('scrolled', solid || window.scrollY > 40);
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+
+function bindReveal(){
+  const els = document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){ els.forEach(e=>e.classList.add('in')); return; }
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, {threshold:.08});
+  els.forEach(e=>io.observe(e));
 }
 
-/* ================== 启动 ================== */
-(async function init(){
+window.addEventListener('hashchange', render);
+
+(async function boot(){
   await loadData();
   if (TOKEN) await verifyAdmin();
-  renderAdminBtn();
+  paintAdmin();
   render();
 })();
 </script>
