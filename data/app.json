@@ -36,7 +36,7 @@
   "activities": [
     {
       "id": "a_0924",
-      "title": "0924 腾讯走访活动",
+      "title": "智汇腾讯 · AI效能革命",
       "date": "2026-09-24",
       "place": "",
       "peopleCount": 26,
@@ -51,15 +51,15 @@
     },
     {
       "id": "a_0815",
-      "title": "0815 成人之美活动",
-      "date": "2026-08-15",
+      "title": "0816 潮起缘聚 美美与共 · 七夕青年雅会",
+      "date": "2026-08-16",
       "place": "",
       "peopleCount": 99,
       "createdAt": "2026-08-15"
     },
     {
       "id": "a_team",
-      "title": "核心团队招募",
+      "title": "成人之美第二届核心团队招募",
       "date": "2026-08-05",
       "place": "",
       "peopleCount": 12,
