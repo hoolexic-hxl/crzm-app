@@ -206,6 +206,26 @@ footer .base{margin-top:44px;padding-top:20px;border-top:1px solid rgba(30,18,6,
 .cards.two{grid-template-columns:repeat(2,1fr)}
 @media (max-width:900px){ .cards.two{grid-template-columns:1fr} }
 
+/* 匹配台 */
+.tabs{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:#fff;margin-bottom:22px}
+.tabs button{font:inherit;font-size:12px;padding:7px 16px;border:none;background:transparent;border-radius:999px;color:var(--gray);cursor:pointer}
+.tabs button.on{background:var(--ink);color:#fff}
+.mrow{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.avatar{width:44px;height:44px;border-radius:50%;background:var(--gold-soft);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;flex:none}
+.mrow .who{flex:1;min-width:0}
+.mrow .who b{font-size:14.5px;font-weight:600}
+.mrow .who small{display:block;color:var(--light);font-size:11.5px;margin-top:2px}
+.mrow .pts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;max-width:46%}
+.mchip{font-size:10.5px;background:var(--gold-soft);color:var(--gold);border-radius:999px;padding:2px 8px;white-space:nowrap}
+.mrow .act{flex:none}
+.mtarget{display:flex;gap:14px;align-items:center;padding:18px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#FFFDF9,#FBF4E7);margin-bottom:18px}
+.mtarget select{flex:1;max-width:360px}
+.matchgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.mcard{border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;gap:12px;align-items:flex-start}
+.mcard .who b{font-size:14px}
+.mcard .who small{display:block;color:var(--light);font-size:11.5px;margin-top:3px;line-height:1.6}
+@media (max-width:900px){ .matchgrid{grid-template-columns:1fr} .mrow .pts{display:none} }
+
 /* reveal */
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
 .reveal.in{opacity:1;transform:none}
@@ -365,8 +385,11 @@ function paintAdmin(){
 const PRIV = { repo:'crzm-people', peoplePath:'people.json', retroPath:'retros.json' };
 let PEOPLE = {people:[]};
 let RETROS = {retros:[]};
+let MATCHES = {matches:[]};
 let PRIV_READY = false;
 let PF = {q:'', gender:'', age:'', edu:'', industry:'', cohort:''};
+let PMODE = 'list';
+let MF = {target:'', gap:'5', edu:'', hometown:'', industry:''};
 
 async function ghGetRepo(repo, path){
   const r = await fetch(`${API}/repos/${CFG.owner}/${repo}/contents/${path}?ref=main&t=${Date.now()}`,
@@ -393,6 +416,8 @@ async function loadPrivate(){
     if (p){ PEOPLE = p.data; PEOPLE._sha = p.sha; }
     const r = await ghGetRepo(PRIV.repo, PRIV.retroPath);
     if (r){ RETROS = r.data; RETROS._sha = r.sha; }
+    const m = await ghGetRepo(PRIV.repo, 'matches.json');
+    if (m){ MATCHES = m.data; MATCHES._sha = m.sha; }
     PRIV_READY = true;
   }catch(e){ console.warn('private load failed', e); PRIV_READY = false; }
   return PRIV_READY;
@@ -400,6 +425,10 @@ async function loadPrivate(){
 async function savePeople(msg){
   PEOPLE._sha = await ghPutRepo(PRIV.repo, PRIV.peoplePath,
     JSON.stringify(PEOPLE, (k,v)=> k==='_sha' ? undefined : v, 2), msg, PEOPLE._sha);
+}
+async function saveMatches(msg){
+  MATCHES._sha = await ghPutRepo(PRIV.repo, 'matches.json',
+    JSON.stringify(MATCHES, (k,v)=> k==='_sha' ? undefined : v, 2), msg, MATCHES._sha);
 }
 async function saveRetros(msg){
   RETROS._sha = await ghPutRepo(PRIV.repo, PRIV.retroPath,
@@ -770,6 +799,11 @@ function viewPeople(){
         <button class="btn small ghost" onclick="openImportPeople()">粘贴导入</button>
         <button class="btn small" onclick="openPersonForm()">＋ 添加</button></div></div>
 
+    <div class="tabs">
+      <button class="${PMODE==='list'?'on':''}" onclick="PMODE='list';render()">人才库 · ${(PEOPLE.people||[]).length}</button>
+      <button class="${PMODE==='match'?'on':''}" onclick="PMODE='match';render()">匹配台</button>
+    </div>
+    ${PMODE==='match'?matchPanel():`
     <div class="toolbar">
       <input type="text" id="pq" placeholder="搜姓名 / 公司 / 电话 / 行业" value="${esc(PF.q)}"
         oninput="PF.q=this.value; refreshPeople()">
@@ -796,7 +830,7 @@ function viewPeople(){
       </select>
       <span class="count" id="pcount"></span>
     </div>
-    <div id="peopleTable">${peopleTable()}</div>
+    <div id="peopleTable">${peopleTable()}</div>`}
     <p class="notice">资料仅管理员可见，存放在私有仓库 ${CFG.owner}/${PRIV.repo}；公开页面只展示活动名称与人数。</p>
   </div></section>`;
 }
@@ -1013,6 +1047,120 @@ async function saveRetro(activityId){
   if (r) Object.assign(r, rec);
   else RETROS.retros.unshift(Object.assign({id:uid('rt'), createdAt:new Date().toISOString().slice(0,10)}, rec));
   try{ await saveRetros('复盘：'+activityId); toast('复盘已保存'); closeModal(); render(); }
+  catch(e){ toast('保存失败：'+e.message, true); }
+}
+
+
+/* ---------- 匹配台 ---------- */
+const ageGapOk = (a, b, gap) => {
+  const x = ageOf(a), y = ageOf(b);
+  if (!x || !y) return false;
+  return Math.abs(x - y) <= Number(gap);
+};
+function matchScore(t, p){
+  const chips = [];
+  const ax = ageOf(t), bx = ageOf(p);
+  if (ax && bx) chips.push(Math.abs(ax-bx)+'岁差');
+  if (t.hometown && p.hometown && t.hometown === p.hometown) chips.push('同祖籍·'+p.hometown);
+  if (t.education && p.education && t.education === p.education) chips.push('同学历·'+p.education);
+  if (t.industry && p.industry && t.industry === p.industry) chips.push('同行业');
+  if (t.cohort && p.cohort && t.cohort === p.cohort) chips.push('同期·'+p.cohort+'期');
+  if (!chips.length) chips.push('新面孔');
+  return chips;
+}
+function candidatesFor(t){
+  const same = MATCHES.matches || [];
+  return (PEOPLE.people||[]).filter(p=>{
+    if (!p.gender || !t.gender) return false;
+    if (p.gender === t.gender) return false;
+    if (p.id === t.id) return false;
+    if (!ageGapOk(t, p, MF.gap)) return false;
+    if (MF.edu && p.education !== MF.edu) return false;
+    if (MF.hometown && p.hometown !== MF.hometown) return false;
+    if (MF.industry && p.industry !== MF.industry) return false;
+    return true;
+  }).sort((a,b)=>{
+    const s = x => (x.hometown===t.hometown?2:0)+(x.education===t.education?1:0)+(x.cohort&&x.cohort===t.cohort?1:0);
+    return s(b)-s(a);
+  });
+}
+function matchPanel(){
+  const t = (PEOPLE.people||[]).find(p=>p.id===MF.target);
+  const opts = [...(PEOPLE.people||[])].sort((a,b)=> (a.gender||'z').localeCompare(b.gender||'z') || (a.name||'').localeCompare(b.name||''))
+    .map(p=>`<option value="${p.id}" ${MF.target===p.id?'selected':''}>${esc(p.name||pname(p))} · ${esc(p.gender||'待确认')} · ${ageOf(p)||'?'}岁</option>`).join('');
+  const edu = uniq((PEOPLE.people||[]).map(p=>p.education)).sort();
+  const homes = uniq((PEOPLE.people||[]).map(p=>p.hometown)).sort();
+  const inds = uniq((PEOPLE.people||[]).map(p=>p.industry)).sort();
+  const list = t ? candidatesFor(t) : [];
+  const matches = [...(MATCHES.matches||[])];
+
+  return `
+  <div class="mtarget">
+    <span style="font-size:12px;color:var(--light);letter-spacing:.1em;flex:none">为谁匹配</span>
+    <select onchange="MF.target=this.value; render()"><option value="">选择一个人…</option>${opts}</select>
+    ${t?`<div style="display:flex;align-items:center;gap:10px">
+      <span class="avatar">${esc((t.name||'?').slice(0,1))}</span>
+      <div><b style="font-size:14px">${esc(t.name)}</b><div class="small-muted">${esc(t.gender)} · ${ageOf(t)||'?'}岁 · ${esc(t.education||'—')} · ${esc(t.hometown||'—')}</div></div>
+    </div>`:''}
+  </div>
+  ${t?`
+  <div class="toolbar">
+    <select onchange="MF.gap=this.value; render()">
+      ${['3','5','8','15'].map(g=>`<option value="${g}" ${MF.gap===g?'selected':''}>年龄差 ≤ ${g} 岁</option>`).join('')}
+    </select>
+    <select onchange="MF.edu=this.value; render()"><option value="">学历 · 不限</option>
+      ${edu.map(e=>`<option ${MF.edu===e?'selected':''}>${esc(e)}</option>`).join('')}</select>
+    <select onchange="MF.hometown=this.value; render()"><option value="">祖籍 · 不限</option>
+      ${homes.map(h=>`<option ${MF.hometown===h?'selected':''}>${esc(h)}</option>`).join('')}</select>
+    <select onchange="MF.industry=this.value; render()"><option value="">行业 · 不限</option>
+      ${inds.map(i=>`<option ${MF.industry===i?'selected':''}>${esc(i)}</option>`).join('')}</select>
+    <span class="count">${list.length} 位候选</span>
+  </div>
+  <div class="matchgrid">
+    ${list.length?list.map(p=>`
+      <div class="mcard">
+        <span class="avatar">${esc((p.name||'?').slice(0,1))}</span>
+        <div class="who" style="flex:1;min-width:0">
+          <b>${esc(p.name||pname(p))}</b> <span class="small-muted">${esc(p.gender)} · ${ageOf(p)||'?'}岁</span>
+          <small>${esc([p.education, p.hometown, ptitle(p)].filter(Boolean).join(' · ') || '—')}</small>
+          <div class="pts" style="justify-content:flex-start;margin-top:8px">
+            ${matchScore(t,p).map(c=>`<span class="mchip">${esc(c)}</span>`).join('')}
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <button class="btn small" onclick="addMatch('${t.id}','${p.id}')">记为候选</button>
+          <button class="btn small ghost" onclick="openPersonDetail('${p.id}')">资料</button>
+        </div>
+      </div>`).join(''):`<div class="empty"><b>没有符合条件的候选</b>放宽年龄差或筛选条件试试</div>`}
+  </div>`:`<div class="empty"><b>先选一个人</b>选好后，系统会按性别、年龄差、学历、祖籍给出候选</div>`}
+
+  <div class="shead" style="margin-top:56px"><div class="lab">MATCHES</div>
+    <h2 style="font-size:22px">配对记录 · ${matches.length}</h2></div>
+  <div style="border-top:1px solid var(--ink)">
+    ${matches.length?matches.map(m=>{
+      const a = PEOPLE.people.find(x=>x.id===m.aId), b = PEOPLE.people.find(x=>x.id===m.bId);
+      return `<div class="mrow">
+        <span class="avatar">${esc((a?.name||'?').slice(0,1))}</span>
+        <div class="who"><b>${esc(a?.name||'—')} × ${esc(b?.name||'—')}</b>
+          <small>${fdate(m.date||'')} ${m.note?('· '+esc(m.note)):''}</small></div>
+        <select style="width:auto" onchange="setMatchStatus('${m.id}', this.value)">
+          ${['已介绍','跟进中','已见面','成','未成'].map(x=>`<option ${m.status===x?'selected':''}>${x}</option>`).join('')}
+        </select>
+      </div>`;
+    }).join(''):'<div class="empty">还没有配对记录 · 从上面的候选里点「记为候选」</div>'}
+  </div>`;
+}
+async function addMatch(aId, bId){
+  if ((MATCHES.matches||[]).some(m=> (m.aId===aId&&m.bId===bId)||(m.aId===bId&&m.bId===aId))) return toast('这两人已在记录里', true);
+  MATCHES.matches = MATCHES.matches || [];
+  MATCHES.matches.unshift({id:uid('mc'), aId, bId, status:'已介绍', note:'', date:new Date().toISOString().slice(0,10)});
+  try{ await saveMatches('配对记录'); toast('已记为候选'); render(); }
+  catch(e){ toast('保存失败：'+e.message, true); }
+}
+async function setMatchStatus(id, status){
+  const m = (MATCHES.matches||[]).find(x=>x.id===id); if(!m) return;
+  m.status = status;
+  try{ await saveMatches('更新配对状态'); toast('已更新 · '+status); }
   catch(e){ toast('保存失败：'+e.message, true); }
 }
 
