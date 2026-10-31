@@ -489,7 +489,7 @@ function hero(){
 
 function viewHome(){
   const ranked = [...DATA.members].sort((a,b)=>pts(b.id)-pts(a.id)).slice(0,3);
-  const recentActs = [...DATA.activities].slice(-3).reverse();
+  const recentActs = [...DATA.activities].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,3);
   return hero() + `
   <section class="pad"><div class="wrap">
     <div class="stats">
@@ -562,7 +562,7 @@ function viewBoard(){
 }
 
 function viewActivities(){
-  const list = [...DATA.activities].reverse().map(a=>{
+  const list = [...DATA.activities].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(a=>{
     const cnt = new Set(DATA.records.filter(r=>r.activityId===a.id).map(r=>r.memberId)).size;
     const people = a.peopleCount ?? (PEOPLE.people||[]).filter(p=>(p.activities||[]).includes(a.id)).length;
     const rt = retroOf(a.id);
