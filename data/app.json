@@ -56,6 +56,14 @@
       "place": "",
       "peopleCount": 99,
       "createdAt": "2026-08-15"
+    },
+    {
+      "id": "a_team",
+      "title": "核心团队招募",
+      "date": "2026-08-05",
+      "place": "",
+      "peopleCount": 12,
+      "createdAt": "2026-08-05"
     }
   ],
   "records": [],
