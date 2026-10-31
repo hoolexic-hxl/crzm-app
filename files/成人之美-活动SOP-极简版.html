@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>成人之美 · 活动 SOP 极简版</title>
+<style>
+  :root{
+    --bg:#F8F4EC; --card:#FFFFFF; --ink:#2C2620; --muted:#8A8175;
+    --line:#EAE1D2; --gold:#B0801F; --gold-soft:#F7EEDB; --green:#2F6E62;
+    --radius:16px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    line-height:1.65; padding:36px 20px 60px;
+  }
+  .wrap{max-width:1020px; margin:0 auto;}
+  /* ---------- header ---------- */
+  .eyebrow{font-size:12px; letter-spacing:.28em; color:var(--gold); font-weight:600;}
+  h1{font-size:34px; line-height:1.25; margin:8px 0 6px; letter-spacing:.02em;}
+  h1 .thin{font-weight:400; color:var(--muted);}
+  .sub{color:var(--muted); font-size:15px;}
+  .sub b{color:var(--ink); font-weight:600;}
+  .toolbar{display:flex; align-items:center; gap:12px; margin:18px 0 26px; flex-wrap:wrap;}
+  .progress-chip{
+    display:flex; align-items:center; gap:10px; background:var(--card);
+    border:1px solid var(--line); border-radius:999px; padding:8px 16px; font-size:13px;
+  }
+  .track{width:110px; height:6px; border-radius:99px; background:var(--gold-soft); overflow:hidden;}
+  .track i{display:block; height:100%; width:0; background:var(--gold); border-radius:99px; transition:width .25s;}
+  button{
+    font:inherit; font-size:13px; color:var(--ink); background:var(--card);
+    border:1px solid var(--line); border-radius:10px; padding:8px 14px; cursor:pointer;
+  }
+  button:hover{background:#FBF8F2;}
+  /* ---------- cards ---------- */
+  section{margin-bottom:22px;}
+  .sec-title{display:flex; align-items:baseline; gap:10px; margin:0 0 12px 2px;}
+  .sec-title .no{font-size:12px; color:var(--gold); font-weight:700; letter-spacing:.14em;}
+  .sec-title h2{font-size:19px; font-weight:700;}
+  .sec-title .hint{font-size:12px; color:var(--muted);}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:20px 22px;}
+  /* ---------- 铁律 ---------- */
+  .rules{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  .rule .n{font-size:22px; font-weight:800; color:var(--gold); letter-spacing:.02em;}
+  .rule b{display:block; margin:6px 0 2px; font-size:15.5px;}
+  .rule p{font-size:13px; color:var(--muted);}
+  /* ---------- 时间轴三栏 ---------- */
+  .cols{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; align-items:start;}
+  .col-head{display:flex; align-items:center; gap:8px; margin-bottom:12px;}
+  .col-head .dot{width:9px; height:9px; border-radius:99px; background:var(--gold);}
+  .col-head.green .dot{background:var(--green);}
+  .col-head b{font-size:15.5px;}
+  .col-head span{font-size:12px; color:var(--muted); margin-left:auto;}
+  ul.checks{list-style:none; display:flex; flex-direction:column; gap:10px;}
+  ul.checks li{display:flex; gap:10px; font-size:13.5px;}
+  ul.checks input{margin-top:4px; accent-color:var(--gold); flex:none; width:15px; height:15px; cursor:pointer;}
+  ul.checks li>span{flex:1;}
+  ul.checks li.done>span{color:#B9B1A4; text-decoration:line-through;}
+  .t{display:inline-block; font-size:11.5px; font-weight:700; color:#8A6A1F; background:var(--gold-soft);
+     border-radius:6px; padding:1px 7px; margin-right:6px; white-space:nowrap; vertical-align:1px;}
+  .star{color:var(--gold); font-weight:700;}
+  .muted{color:var(--muted); font-size:12px;}
+  /* ---------- 分工 ---------- */
+  .roles{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+  .role b{font-size:15px; display:block; margin-bottom:4px;}
+  .role b .tag{font-size:11px; color:var(--green); background:#EAF2EF; border-radius:6px; padding:1px 7px; margin-left:6px; font-weight:600; vertical-align:1px;}
+  .role p{font-size:13px; color:var(--muted);}
+  /* ---------- 应急 ---------- */
+  .risks{display:flex; flex-direction:column; gap:0;}
+  .risk{display:flex; gap:14px; padding:11px 0; border-bottom:1px dashed var(--line); font-size:13.5px;}
+  .risk:last-child{border-bottom:none;}
+  .risk b{flex:none; width:118px; color:var(--ink);}
+  .risk span{color:var(--muted);}
+  .risk span em{font-style:normal; color:var(--ink);}
+  /* ---------- footer ---------- */
+  footer{margin-top:30px; font-size:12px; color:var(--muted); text-align:center; line-height:2;}
+  footer .sep{margin:0 8px; color:var(--line);}
+  /* ---------- print ---------- */
+  @media print{
+    body{background:#fff; padding:0; font-size:12px;}
+    .toolbar, footer .no-print{display:none !important;}
+    .card{box-shadow:none; border-color:#DDD;}
+    section{page-break-inside:avoid;}
+    h1{font-size:24px;}
+    .cols{gap:10px;}
+  }
+  @media (max-width:820px){
+    .rules,.cols,.roles{grid-template-columns:1fr;}
+    h1{font-size:26px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">成人之美 · 活动执行</div>
+    <h1>活动 SOP <span class="thin">极简版</span></h1>
+    <p class="sub">一页纸跑完一场活动：<b>前两周发车 · 当天一人一岗 · 后三天收尾</b></p>
+    <div class="toolbar">
+      <div class="progress-chip">
+        <span id="p-text">已完成 0 / 13</span>
+        <div class="track"><i id="p-bar"></i></div>
+      </div>
+      <button onclick="window.print()">🖨 打印贴墙</button>
+      <button id="reset">↺ 重置勾选</button>
+      <span class="muted">每次活动前，打开这一页勾一遍即可</span>
+    </div>
+  </header>
+
+  <!-- 三条铁律 -->
+  <section>
+    <div class="sec-title"><span class="no">WHERE TO START</span><h2>三条铁律</h2><span class="hint">别的都可省，这三条不能省</span></div>
+    <div class="rules">
+      <div class="card rule"><div class="n">01</div><b>每件事写一个名字</b><p>不写"团队"，写谁。一个人的名字 = 这件事一定会发生。</p></div>
+      <div class="card rule"><div class="n">02</div><b>写死时间点</b><p>"16:00 开放签到"，不是"下午签到"。每段之间留 10 分钟缓冲。</p></div>
+      <div class="card rule"><div class="n">03</div><b>开场前 5 分钟碰头</b><p>全员站一圈，把第一个小时对一遍。临门一脚，最防翻车。</p></div>
+    </div>
+  </section>
+
+  <!-- 流程三栏 -->
+  <section>
+    <div class="sec-title"><span class="no">THE RUN</span><h2>全流程（照着勾）</h2><span class="hint">13 个动作，勾完 = 一场顺的活动</span></div>
+    <div class="cols">
+
+      <div class="card">
+        <div class="col-head"><span class="dot"></span><b>活动前</b><span>T-14 → T-1</span></div>
+        <ul class="checks">
+          <li><input type="checkbox" data-k="pre1"><span><span class="t">T-14</span>方案定稿：主题 / 时间 / 地点 / 人数上限（大型活动提前 30 天报批）</span></li>
+          <li><input type="checkbox" data-k="pre2"><span><span class="t">T-10</span>前宣启动：海报 + 社群推送，报名信息统一收</span></li>
+          <li><input type="checkbox" data-k="pre3"><span><span class="t">T-7</span>分工宣贯：行动计划过一遍，一人一岗定到人</span></li>
+          <li><input type="checkbox" data-k="pre4"><span><span class="t">T-1</span>双提醒：给参与者发地址 / 交通 / 开始时间 / 取消规则；物料清点</span></li>
+          <li><input type="checkbox" data-k="pre5"><span><span class="t">T-0</span>提前到位：场地布置完成、签到台就位</span></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="col-head green"><span class="dot"></span><b>活动当天</b><span>按时间点走</span></div>
+        <ul class="checks">
+          <li><input type="checkbox" data-k="day1"><span><span class="t">−60'</span>志愿者到场：布置收尾 <span class="star">✦ 碰头 5 分钟，过一遍第一个小时</span></span></li>
+          <li><input type="checkbox" data-k="day2"><span><span class="t">−15'</span>开放签到：签到表 + 姓名贴 + 笔，记录到场</span></li>
+          <li><input type="checkbox" data-k="day3"><span><span class="t">0'</span>开场说明 3 分钟：目标 / 时间安排 / 互动边界 / 积分规则</span></li>
+          <li><input type="checkbox" data-k="day4"><span><span class="t">中段</span>破冰 → 主题分享/交流 → 自由对接（每段之间留缓冲）</span></li>
+          <li><input type="checkbox" data-k="day5"><span><span class="t">收尾</span>结束前 15 分钟：合影 + 反馈卡 + 预告下一场</span></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="col-head"><span class="dot"></span><b>活动后</b><span>T+24h → 每周</span></div>
+        <ul class="checks">
+          <li><input type="checkbox" data-k="post1"><span><span class="t">T+24h</span>后宣发布 + 积分录入（签到 / 未到 / 贡献 / 反馈）</span></li>
+          <li><input type="checkbox" data-k="post2"><span><span class="t">T+3d</span>复盘 15 分钟：定什么 · 出什么意外 · <b>下次只改一条</b></span></li>
+          <li><input type="checkbox" data-k="post3"><span><span class="t">每周</span>检查积分榜和本 SOP，把经验沉淀进去</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 分工 -->
+  <section>
+    <div class="sec-title"><span class="no">WHO DOES WHAT</span><h2>当天分工卡</h2><span class="hint">一人一岗，写在纸上贴签到台</span></div>
+    <div class="roles">
+      <div class="card role"><b>主理人<span class="tag">1 人</span></b><p>总控 + 致辞 + 现场救火。手里拿着这份 SOP。</p></div>
+      <div class="card role"><b>签到<span class="tag">1 人</span></b><p>名单 + 姓名贴 + 记录到场，迟到/缺席标注。</p></div>
+      <div class="card role"><b>引导<span class="tag">1–2 人</span></b><p>动线指引 + 主动照顾落单的人。</p></div>
+      <div class="card role"><b>记录<span class="tag">1 人</span></b><p>拍照片 + 记要点 + 回收反馈卡。素材当天传群里。</p></div>
+    </div>
+  </section>
+
+  <!-- 应急 -->
+  <section>
+    <div class="sec-title"><span class="no">IF THINGS GO WRONG</span><h2>应急预案</h2><span class="hint">出事照做，不用开会</span></div>
+    <div class="card risks">
+      <div class="risk"><b>人数不足</b><span>主理人 <em>一对一</em> 邀请 + 社群再推一波，提前 3 天看报名数。</span></div>
+      <div class="risk"><b>物料缺</b><span>现场<em>简化</em>：能借就借、能自制就自制（手工桌卡、纸质计分板）。</span></div>
+      <div class="risk"><b>场地变</b><span>提前备好<em>第 2 个免费场地</em>；变更 <em>48 小时</em>前通知参与者。</span></div>
+      <div class="risk"><b>志愿者请假</b><span>后备志愿者顶上；实在没人就<em>一人多岗</em>，砍掉最不重要的环节。</span></div>
+    </div>
+  </section>
+
+  <footer>
+    整理自：《成人之美管理制度》·《2026 年度公益活动规划》· 成人之美积分榜网页 SOP，并参考行业成熟活动执行经验（一人一责 / 时间锚点 / 缓冲 / 开场前碰头）。<br>
+    详细版见同文件夹《成人之美-活动SOP（整理版）》<span class="sep">|</span>2026-09 · v1.0
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var KEY = 'crzm-sop-checklist-v1';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var pText = document.getElementById('p-text');
+  var pBar = document.getElementById('p-bar');
+
+  function load(){
+    try{
+      var saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+      boxes.forEach(function(b){ if(saved[b.dataset.k]) b.checked = true; });
+    }catch(e){}
+  }
+  function save(){
+    var o = {};
+    boxes.forEach(function(b){ if(b.checked) o[b.dataset.k] = 1; });
+    try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){}
+  }
+  function render(){
+    var done = 0;
+    boxes.forEach(function(b){
+      var li = b.closest('li');
+      if(b.checked){ done++; li.classList.add('done'); } else { li.classList.remove('done'); }
+    });
+    pText.textContent = '已完成 ' + done + ' / ' + boxes.length;
+    pBar.style.width = (boxes.length ? (done / boxes.length * 100) : 0) + '%';
+  }
+  boxes.forEach(function(b){ b.addEventListener('change', function(){ save(); render(); }); });
+  document.getElementById('reset').addEventListener('click', function(){
+    boxes.forEach(function(b){ b.checked = false; });
+    save(); render();
+  });
+  load(); render();
+})();
+</script>
+</body>
+</html>
