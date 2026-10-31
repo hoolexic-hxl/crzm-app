@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>成人之美 · 活动系统</title>
+<style>
+:root{
+  --bg:#F8F4EC; --card:#FFFFFF; --ink:#1C1B18; --gray:#6E685E; --light:#9C958A;
+  --line:#E4DED2; --line2:#CFC8BC; --gold:#A06A24; --gold-soft:#F6EDDD;
+  --green:#2F6E62; --red:#A4453B;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:14px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;padding:0 20px 60px}
+.wrap{max-width:1080px;margin:0 auto}
+header{display:flex;align-items:center;gap:24px;padding:22px 0 14px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.brand{display:flex;flex-direction:column;gap:2px;margin-right:auto}
+.brand b{font-size:17px;letter-spacing:.02em}
+.brand span{font-size:11px;color:var(--light);letter-spacing:.22em}
+nav{display:flex;gap:6px;flex-wrap:wrap}
+nav a{font-size:13px;color:var(--gray);text-decoration:none;padding:7px 12px;border-radius:9px}
+nav a.on{background:#fff;border:1px solid var(--line);color:var(--ink)}
+nav a:hover{color:var(--ink)}
+.admin-btn{font:inherit;font-size:12.5px;padding:8px 14px;border-radius:9px;border:1px solid var(--line2);background:#fff;color:var(--ink);cursor:pointer}
+.admin-btn:hover{background:#FBF8F2}
+.admin-btn.on{border-color:var(--gold);color:var(--gold);background:var(--gold-soft)}
+.hero{padding:34px 0 10px}
+.eyebrow{font-size:11px;letter-spacing:.28em;color:var(--gold)}
+h1{font-size:30px;line-height:1.25;margin:8px 0 6px;font-weight:700}
+.sub{color:var(--gray);font-size:13.5px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:22px 0 26px}
+.stat{background:#fff;padding:16px 18px}
+.stat b{display:block;font-size:26px;font-weight:700;line-height:1.2}
+.stat span{font-size:12px;color:var(--light)}
+section{margin:26px 0}
+.sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
+.sec-head h2{font-size:17px}
+.sec-head .hint{font-size:12px;color:var(--light)}
+.sec-head .spacer{margin-left:auto}
+.btn{font:inherit;font-size:13px;padding:9px 15px;border-radius:10px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
+.btn.ghost{background:#fff;color:var(--ink);border-color:var(--line2)}
+.btn.small{font-size:12px;padding:6px 11px;border-radius:8px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:0;overflow:hidden}
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;color:var(--gray);font-weight:400;text-align:left;letter-spacing:.08em;padding:11px 14px;border-bottom:1px solid var(--ink);white-space:nowrap}
+td{font-size:13.5px;padding:12px 14px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.rank{color:var(--light);font-size:12px;width:34px}
+.top1 .rank{color:var(--gold);font-weight:700}
+.tag{display:inline-block;font-size:11px;color:var(--gray);background:#F4F0E7;border-radius:6px;padding:1px 7px;margin-left:6px}
+.pts{font-weight:700;font-variant-numeric:tabular-nums}
+.pts.neg{color:var(--red)}
+.empty{padding:34px 18px;text-align:center;color:var(--light);font-size:13px}
+.empty b{display:block;color:var(--ink);font-size:14px;margin-bottom:4px}
+.list{display:flex;flex-direction:column}
+.row{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line);font-size:13.5px}
+.row:last-child{border-bottom:none}
+.row .grow{flex:1;min-width:0}
+.row small{color:var(--light);font-size:12px}
+.grid-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.act{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.act b{font-size:15px}
+.act .meta{color:var(--light);font-size:12px;margin:4px 0 10px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:11px;padding:2px 8px;border-radius:99px;border:1px solid var(--line);color:var(--gray)}
+.file{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.file:last-child{border-bottom:none}
+.file .ic{width:34px;height:34px;border-radius:9px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--gold);flex:none}
+.file a{color:var(--ink);text-decoration:none;font-size:13.5px}
+.file a:hover{text-decoration:underline}
+.notice{border:1px solid var(--line);background:#fff;border-radius:12px;padding:14px 16px;font-size:12.5px;color:var(--gray)}
+.notice b{color:var(--ink)}
+.modal-bg{position:fixed;inset:0;background:rgba(28,27,24,.42);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+.modal-bg.show{display:flex}
+.modal{background:#fff;border-radius:16px;width:100%;max-width:460px;padding:22px 22px 18px;max-height:88vh;overflow:auto}
+.modal h3{font-size:16px;margin-bottom:4px}
+.modal p.hint{font-size:12px;color:var(--light);margin-bottom:14px}
+label{display:block;font-size:12px;color:var(--gray);margin:10px 0 4px}
+input[type=text],input[type=password],input[type=date],select,textarea{width:100%;font:inherit;font-size:13.5px;padding:9px 11px;border:1px solid var(--line2);border-radius:9px;background:#fff;color:var(--ink)}
+textarea{min-height:90px;resize:vertical}
+.modal .actions{display:flex;gap:10px;margin-top:16px}
+.modal .actions .btn{flex:1}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:13px;padding:10px 16px;border-radius:10px;opacity:0;pointer-events:none;transition:.2s;z-index:60;max-width:80vw}
+.toast.show{opacity:1}
+.toast.err{background:var(--red)}
+footer{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--light);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+@media(max-width:760px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .grid-cards{grid-template-columns:1fr}
+  h1{font-size:24px}
+  header{gap:12px}
+}
+@media print{ body{background:#fff} .admin-btn,nav,footer{display:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><b>成人之美 · 活动系统</b><span>CHENG REN ZHI MEI · OPS</span></div>
+    <nav id="nav">
+      <a href="#/board" data-r="board">榜单</a>
+      <a href="#/activities" data-r="activities">活动</a>
+      <a href="#/members" data-r="members">成员</a>
+      <a href="#/files" data-r="files">资料库</a>
+      <a href="#/about" data-r="about">说明</a>
+    </nav>
+    <button class="admin-btn" id="adminBtn">管理员登录</button>
+  </header>
+
+  <main id="view"></main>
+
+  <footer>
+    <span>成人之美 · 后台与技术支持 ｜ 数据与文件存放在 GitHub 仓库（有版本历史）</span>
+    <span id="syncState">—</span>
+  </footer>
+</div>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal" id="modal"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================== 配置 ================== */
+const CFG = {
+  owner: 'hoolexic-hxl',
+  repo: 'crzm-app',
+  branch: 'main',
+  dataPath: 'data/app.json',
+  filesDir: 'files',
+  sopUrl: 'https://hoolexic-hxl.github.io/crzm-sop/'
+};
+const API = 'https://api.github.com';
+const TOKEN_KEY = 'crzm-admin-token';
+
+/* ================== 状态 ================== */
+let DATA = { meta:{}, members:[], activities:[], records:[], files:[] };
+let DATA_SHA = null;
+let TOKEN = localStorage.getItem(TOKEN_KEY) || '';
+let IS_ADMIN = false;
+let BUSY = false;
+
+const $ = (s, el=document) => el.querySelector(s);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = (p) => p + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+const fmtDate = (d) => d ? d.replace(/-/g, '.') : '';
+const fmtSize = (n) => n > 1048576 ? (n/1048576).toFixed(1)+' MB' : Math.max(1, Math.round(n/1024))+' KB';
+
+function toast(msg, isErr=false){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isErr ? ' err' : '');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.className = 'toast', 2600);
+}
+
+/* ================== 数据读写 ================== */
+async function loadData(){
+  const urls = [
+    `./${CFG.dataPath}?t=${Date.now()}`,
+    `https://raw.githubusercontent.com/${CFG.owner}/${CFG.repo}/${CFG.branch}/${CFG.dataPath}?t=${Date.now()}`
+  ];
+  for (const u of urls){
+    try{
+      const r = await fetch(u, {cache:'no-store'});
+      if (!r.ok) continue;
+      const j = await r.json();
+      DATA = Object.assign({meta:{},members:[],activities:[],records:[],files:[]}, j);
+      $('#syncState').textContent = '数据已同步 · ' + new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});
+      return true;
+    }catch(e){ /* try next */ }
+  }
+  $('#syncState').textContent = '离线（使用本地缓存）';
+  return false;
+}
+
+function ghHeaders(){
+  return { 'Authorization': 'Bearer ' + TOKEN, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
+}
+
+async function ghGetSha(path){
+  try{
+    const r = await fetch(`${API}/repos/${CFG.owner}/${CFG.repo}/contents/${path}?ref=${CFG.branch}`, {headers: ghHeaders()});
+    if (r.status === 404) return null;
+    if (!r.ok) throw new Error('读取文件信息失败：' + r.status);
+    const j = await r.json();
+    return j.sha || null;
+  }catch(e){ throw e; }
+}
+
+function toBase64(str){
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin);
+}
+
+async function ghPut(path, base64, message){
+  const sha = await ghGetSha(path);
+  const body = { message, content: base64, branch: CFG.branch };
+  if (sha) body.sha = sha;
+  const r = await fetch(`${API}/repos/${CFG.owner}/${CFG.repo}/contents/${path}`, {
+    method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body)
+  });
+  if (!r.ok){
+    const j = await r.json().catch(()=>({}));
+    throw new Error((j.message || '写入失败') + ' (' + r.status + ')');
+  }
+  return r.json();
+}
+
+async function saveData(message){
+  await ghPut(CFG.dataPath, toBase64(JSON.stringify(DATA, null, 2)), message || '更新数据');
+  $('#syncState').textContent = '已保存 · ' + new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});
+}
+
+/* ================== 管理登录 ================== */
+async function verifyAdmin(){
+  if (!TOKEN) { IS_ADMIN = false; renderAdminBtn(); return; }
+  try{
+    const r = await fetch(`${API}/repos/${CFG.owner}/${CFG.repo}`, {headers: ghHeaders()});
+    if (!r.ok) throw new Error(r.status === 401 ? 'Token 无效' : '无法访问仓库（' + r.status + '）');
+    const j = await r.json();
+    IS_ADMIN = !!(j.permissions && j.permissions.push);
+    if (!IS_ADMIN) toast('Token 没有写入权限，请联系管理员', true);
+  }catch(e){
+    IS_ADMIN = false;
+    toast(e.message, true);
+  }
+  renderAdminBtn();
+}
+
+function renderAdminBtn(){
+  const b = $('#adminBtn');
+  if (IS_ADMIN){ b.textContent = '已登录 · 退出'; b.classList.add('on'); }
+  else { b.textContent = '管理员登录'; b.classList.remove('on'); }
+}
+
+/* ================== 通用 UI ================== */
+function openModal(html){
+  $('#modal').innerHTML = html;
+  $('#modalBg').classList.add('show');
+}
+function closeModal(){ $('#modalBg').classList.remove('show'); $('#modal').innerHTML = ''; }
+$('#modalBg').addEventListener('click', e => { if (e.target.id === 'modalBg') closeModal(); });
+
+function guardAdmin(){
+  if (IS_ADMIN) return true;
+  toast('请先登录管理员', true);
+  openLogin();
+  return false;
+}
+
+function openLogin(){
+  openModal(`
+    <h3>管理员登录</h3>
+    <p class="hint">粘贴你的 GitHub 细粒度 Token（只授权本仓库的 Contents 读写）。Token 只保存在本机浏览器，不会上传。</p>
+    <label>GitHub Token</label>
+    <input type="password" id="tk" placeholder="github_pat_..." value="">
+    <div class="actions">
+      <button class="btn ghost" onclick="closeModal()">取消</button>
+      <button class="btn" onclick="doLogin()">验证并保存</button>
+    </div>
+    <p class="hint" style="margin-top:12px">没有 Token？见「说明」页 → 管理员登录步骤（1 分钟生成）。</p>
+  `);
+  setTimeout(()=>$('#tk')?.focus(), 50);
+}
+
+async function doLogin(){
+  const tk = ($('#tk').value || '').trim();
+  if (!tk) return toast('请填写 Token', true);
+  TOKEN = tk;
+  localStorage.setItem(TOKEN_KEY, tk);
+  BUSY = true;
+  await verifyAdmin();
+  BUSY = false;
+  if (IS_ADMIN){ closeModal(); toast('已登录管理员'); render(); }
+}
+
+function logout(){
+  TOKEN = ''; IS_ADMIN = false;
+  localStorage.removeItem(TOKEN_KEY);
+  renderAdminBtn(); render(); toast('已退出管理员');
+}
+
+$('#adminBtn').addEventListener('click', () => IS_ADMIN ? logout() : openLogin());
+
+/* ================== 计算 ================== */
+function memberPoints(id){
+  return DATA.records.filter(r => r.memberId === id).reduce((s, r) => s + Number(r.points || 0), 0);
+}
+function memberAttended(id){
+  return new Set(DATA.records.filter(r => r.memberId === id && r.type === 'attended').map(r => r.activityId)).size;
+}
+function currentMonthActivities(){
+  const m = new Date().toISOString().slice(0,7);
+  return DATA.activities.filter(a => (a.date || '').slice(0,7) === m).length;
+}
+
+/* ================== 页面 ================== */
+function render(){
+  const route = (location.hash || '#/board').replace('#/','') || 'board';
+  document.querySelectorAll('#nav a').forEach(a => a.classList.toggle('on', a.dataset.r === route));
+  const v = $('#view');
+  if (route === 'board') v.innerHTML = viewBoard();
+  else if (route === 'activities') v.innerHTML = viewActivities();
+  else if (route === 'members') v.innerHTML = viewMembers();
+  else if (route === 'files') v.innerHTML = viewFiles();
+  else v.innerHTML = viewAbout();
+  window.scrollTo({top:0});
+}
+window.addEventListener('hashchange', render);
+
+function viewBoard(){
+  const ranked = [...DATA.members].sort((a,b) => memberPoints(b.id) - memberPoints(a.id));
+  const total = DATA.records.reduce((s,r)=>s+Number(r.points||0), 0);
+  const rows = ranked.map((m,i) => {
+    const pts = memberPoints(m.id);
+    return `<tr class="${i===0?'top1':''}">
+      <td class="rank">${String(i+1).padStart(2,'0')}</td>
+      <td><b>${esc(m.nickname || m.name)}</b>${m.group?`<span class="tag">${esc(m.group)}</span>`:''}</td>
+      <td>${memberAttended(m.id)} 场</td>
+      <td class="num"><span class="pts ${pts<0?'neg':''}">${pts}</span></td>
+    </tr>`;
+  }).join('');
+  const recent = [...DATA.records].slice(-8).reverse().map(r => {
+    const m = DATA.members.find(x=>x.id===r.memberId);
+    const a = DATA.activities.find(x=>x.id===r.activityId);
+    return `<div class="row"><div class="grow"><b>${esc(m? (m.nickname||m.name) : '—')}</b>
+      <span class="tag">${esc(TYPE_LABEL[r.type] || r.type)}</span>
+      <small>${esc(a?a.title:'')}</small></div>
+      <span class="pts ${r.points<0?'neg':''}">${r.points>0?'+':''}${r.points}</span></div>`;
+  }).join('');
+
+  return `
+  <div class="hero">
+    <div class="eyebrow">ACTIVITY · LEADERBOARD</div>
+    <h1>成人之美 · 活动榜单</h1>
+    <p class="sub">参与、贡献、复盘都会被记录 —— 积分是为了鼓励持续参与，不是压力。</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>${DATA.members.length}</b><span>成员</span></div>
+    <div class="stat"><b>${DATA.activities.length}</b><span>活动场次</span></div>
+    <div class="stat"><b>${currentMonthActivities()}</b><span>本月活动</span></div>
+    <div class="stat"><b>${total}</b><span>累计积分</span></div>
+  </div>
+
+  <section>
+    <div class="sec-head"><h2>积分榜</h2><span class="hint">按累计积分排序</span>
+      ${IS_ADMIN?'<span class="spacer"></span><button class="btn small" onclick="openRecord()">＋ 记分</button>':''}</div>
+    <div class="card">
+      ${DATA.members.length ? `<table><thead><tr><th class="rank">#</th><th>成员</th><th>参与</th><th class="num">积分</th></tr></thead><tbody>${rows}</tbody></table>` :
+        `<div class="empty"><b>还没有成员</b>登录管理员后，到「成员」页添加或批量导入</div>`}
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>最近记录</h2><span class="hint">最新 8 条</span></div>
+    <div class="card">${recent || `<div class="empty"><b>还没有记录</b>每场活动后，把签到 / 贡献录进来</div>`}</div>
+  </section>`;
+}
+
+const TYPE_LABEL = { signup:'报名', attended:'到场', noshow:'未到', contribution:'贡献', feedback:'反馈' };
+const TYPE_PRESET = [
+  { type:'signup', points:3, label:'报名 +3' },
+  { type:'attended', points:10, label:'准时到场 +10' },
+  { type:'contribution', points:8, label:'贡献（主持/协助）+8' },
+  { type:'feedback', points:4, label:'复盘反馈 +4' },
+  { type:'noshow', points:-8, label:'报名未到 -8' },
+  { type:'custom', points:0, label:'自定义' }
+];
+
+function viewActivities(){
+  const cards = DATA.activities.slice().reverse().map(a => {
+    const cnt = new Set(DATA.records.filter(r=>r.activityId===a.id).map(r=>r.memberId)).size;
+    return `<div class="act">
+      <b>${esc(a.title)}</b>
+      <div class="meta">${fmtDate(a.date)}${a.place?' · '+esc(a.place):''}</div>
+      <div class="chips"><span class="chip">${cnt} 人参与</span>
+        ${IS_ADMIN?`<button class="btn small ghost" onclick="openRecord('${a.id}')">记分</button>`:''}</div>
+    </div>`;
+  }).join('');
+  return `
+  <div class="hero"><div class="eyebrow">ACTIVITIES</div><h1>活动</h1>
+    <p class="sub">每场活动结束后，在这里补记签到与贡献。</p></div>
+  <section>
+    <div class="sec-head"><h2>活动列表</h2><span class="hint">${DATA.activities.length} 场</span>
+      ${IS_ADMIN?'<span class="spacer"></span><button class="btn small" onclick="openActivity()">＋ 新增活动</button>':''}</div>
+    ${DATA.activities.length ? `<div class="grid-cards">${cards}</div>` : `<div class="card"><div class="empty"><b>还没有活动</b>登录管理员后新增</div></div>`}
+  </section>`;
+}
+
+function viewMembers(){
+  const rows = DATA.members.map(m => `<tr>
+    <td><b>${esc(m.nickname || m.name)}</b>${m.nickname && m.name && m.nickname!==m.name?`<small style="color:var(--light)"> · ${esc(m.name)}</small>`:''}</td>
+    <td>${esc(m.group || '')}</td><td>${fmtDate(m.createdAt)}</td>
+    <td class="num">${memberPoints(m.id)}</td></tr>`).join('');
+  return `
+  <div class="hero"><div class="eyebrow">MEMBERS</div><h1>成员</h1>
+    <p class="sub">公开页只展示昵称与积分，不展示手机号等联系方式。</p></div>
+  <section>
+    <div class="sec-head"><h2>成员名单</h2><span class="hint">${DATA.members.length} 人</span>
+      ${IS_ADMIN?'<span class="spacer"></span><button class="btn small ghost" onclick="openImport()">批量导入</button><button class="btn small" onclick="openMember()" style="margin-left:8px">＋ 添加成员</button>':''}</div>
+    <div class="card">${DATA.members.length ? `<table><thead><tr><th>成员</th><th>分组</th><th>加入</th><th class="num">积分</th></tr></thead><tbody>${rows}</tbody></table>` : `<div class="empty"><b>还没有成员</b>登录管理员后添加</div>`}</div>
+  </section>`;
+}
+
+const CATS = ['表格','文档','海报','照片','其他'];
+
+function viewFiles(){
+  const list = DATA.files.slice().reverse().map(f => `<div class="file">
+    <div class="ic">${esc((f.ext||'').toUpperCase().slice(0,4))}</div>
+    <div class="grow"><a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.name)}</a>
+      <div style="display:flex;gap:8px;margin-top:2px"><small>${esc(f.category||'其他')} · ${fmtSize(f.size||0)} · ${fmtDate((f.uploadedAt||'').slice(0,10))}</small></div></div>
+    <a class="btn small ghost" href="${esc(f.url)}" target="_blank" rel="noopener">打开</a>
+  </div>`).join('');
+  return `
+  <div class="hero"><div class="eyebrow">FILES</div><h1>资料库</h1>
+    <p class="sub">海报、表格、照片、文档 —— 团队共用，谁打开链接都能下载。</p></div>
+  <section>
+    <div class="sec-head"><h2>全部资料</h2><span class="hint">${DATA.files.length} 个文件</span>
+      ${IS_ADMIN?'<span class="spacer"></span><button class="btn small" onclick="openUpload()">＋ 上传资料</button>':''}</div>
+    <div class="card">${DATA.files.length ? list : `<div class="empty"><b>还没有资料</b>${IS_ADMIN?'点右上角上传第一个文件':'登录管理员后上传'}</div>`}</div>
+    <p class="notice" style="margin-top:12px">说明：文件存放在 GitHub 仓库的 <b>files/</b> 目录，单个文件建议不超过 20MB（图片 / PDF / 表格最合适）。</p>
+  </section>`;
+}
+
+function viewAbout(){
+  return `
+  <div class="hero"><div class="eyebrow">ABOUT</div><h1>说明</h1>
+    <p class="sub">这是成人之美的活动系统：公开可访问，管理员可维护。</p></div>
+  <section>
+    <div class="sec-head"><h2>谁能看到 / 谁能修改</h2></div>
+    <div class="card" style="padding:18px 20px">
+      <p><b>所有人（拿到链接）</b>：可以查看榜单、活动、成员名单（昵称/分组）、资料库并下载文件。</p>
+      <p style="margin-top:8px"><b>管理员</b>：登录后可新增活动 / 成员、记分、上传资料。</p>
+      <p style="margin-top:8px"><b>隐私</b>：不展示手机号、备注等敏感信息；公开积分仅用于鼓励参与。</p>
+    </div>
+  </section>
+  <section>
+    <div class="sec-head"><h2>管理员登录步骤（1 分钟）</h2></div>
+    <div class="card" style="padding:18px 20px">
+      <ol style="padding-left:18px;color:var(--gray)">
+        <li>打开 <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a></li>
+        <li>Token name 填 <b>crzm-app-admin</b>；Expiration 选 90 天或更长</li>
+        <li>Repository access 选 <b>Only select repositories → hoolexic-hxl/crzm-app</b></li>
+        <li>Permissions → Repository permissions → <b>Contents: Read and write</b>（其余不用给）</li>
+        <li>生成后复制 <b>github_pat_...</b>，回到本页点右上「管理员登录」粘贴</li>
+      </ol>
+      <p style="margin-top:10px;font-size:12px;color:var(--light)">Token 只保存在你本机浏览器；换设备需重新登录一次。</p>
+    </div>
+  </section>
+  <section>
+    <div class="sec-head"><h2>相关链接</h2></div>
+    <div class="card" style="padding:18px 20px">
+      <p>活动 SOP（极简版）：<a href="${CFG.sopUrl}" target="_blank" rel="noopener">${CFG.sopUrl}</a></p>
+      <p style="margin-top:6px">数据仓库：<a href="https://github.com/${CFG.owner}/${CFG.repo}" target="_blank" rel="noopener">github.com/${CFG.owner}/${CFG.repo}</a></p>
+    </div>
+  </section>`;
+}
+
+/* ================== 弹窗表单 ================== */
+function openMember(){
+  if (!guardAdmin()) return;
+  openModal(`<h3>添加成员</h3><p class="hint">昵称用于公开榜单展示。</p>
+    <label>昵称 / 姓名</label><input type="text" id="mNick" placeholder="例如：荔">
+    <label>真实姓名（选填，不公开）</label><input type="text" id="mName" placeholder="例如：黄煦荔">
+    <label>分组</label><input type="text" id="mGroup" placeholder="例如：统筹组 / 第 20 期">
+    <div class="actions"><button class="btn ghost" onclick="closeModal()">取消</button>
+    <button class="btn" onclick="addMember()">保存</button></div>`);
+  setTimeout(()=>$('#mNick')?.focus(),50);
+}
+async function addMember(){
+  const nick = ($('#mNick').value||'').trim();
+  if (!nick) return toast('请填写昵称', true);
+  DATA.members.push({ id: uid('m'), nickname: nick, name: ($('#mName').value||'').trim(), group: ($('#mGroup').value||'').trim(), createdAt: new Date().toISOString().slice(0,10) });
+  await commit('添加成员：' + nick); closeModal(); render();
+}
+
+function openImport(){
+  if (!guardAdmin()) return;
+  openModal(`<h3>批量导入成员</h3><p class="hint">每行一个：昵称,真实姓名,分组（后两项可留空）</p>
+    <textarea id="imp" placeholder="金湖,K,统筹组&#10;Kaka Lin,,统筹组&#10;荔,黄煦荔,统筹组"></textarea>
+    <div class="actions"><button class="btn ghost" onclick="closeModal()">取消</button>
+    <button class="btn" onclick="doImport()">导入</button></div>`);
+}
+async function doImport(){
+  const lines = ($('#imp').value||'').split('\n').map(s=>s.trim()).filter(Boolean);
+  if (!lines.length) return toast('没有内容', true);
+  lines.forEach(l => {
+    const [nick, name, group] = l.split(/[,，]/).map(s=>(s||'').trim());
+    if (!nick) return;
+    DATA.members.push({ id: uid('m'), nickname: nick, name: name||'', group: group||'', createdAt: new Date().toISOString().slice(0,10) });
+  });
+  await commit('批量导入成员'); closeModal(); render();
+}
+
+function openActivity(){
+  if (!guardAdmin()) return;
+  openModal(`<h3>新增活动</h3>
+    <label>活动名称</label><input type="text" id="aTitle" placeholder="例如：友友碰头会 · 第二期">
+    <label>日期</label><input type="date" id="aDate" value="${new Date().toISOString().slice(0,10)}">
+    <label>地点（选填）</label><input type="text" id="aPlace">
+    <div class="actions"><button class="btn ghost" onclick="closeModal()">取消</button>
+    <button class="btn" onclick="addActivity()">保存</button></div>`);
+  setTimeout(()=>$('#aTitle')?.focus(),50);
+}
+async function addActivity(){
+  const t = ($('#aTitle').value||'').trim();
+  if (!t) return toast('请填写活动名称', true);
+  DATA.activities.push({ id: uid('a'), title: t, date: $('#aDate').value, place: ($('#aPlace').value||'').trim(), createdAt: new Date().toISOString().slice(0,10) });
+  await commit('新增活动：' + t); closeModal(); render();
+}
+
+function openRecord(activityId){
+  if (!guardAdmin()) return;
+  if (!DATA.members.length) return toast('先添加成员', true);
+  if (!DATA.activities.length) return toast('先添加活动', true);
+  const acts = DATA.activities.slice().reverse().map(a=>`<option value="${a.id}" ${a.id===activityId?'selected':''}>${esc(a.title)} · ${fmtDate(a.date)}</option>`).join('');
+  const mems = DATA.members.map(m=>`<option value="${m.id}">${esc(m.nickname||m.name)}</option>`).join('');
+  const types = TYPE_PRESET.map((t,i)=>`<option value="${i}">${esc(t.label)}</option>`).join('');
+  openModal(`<h3>记一条积分</h3><p class="hint">选择活动、成员与类型即可。</p>
+    <label>活动</label><select id="rAct">${acts}</select>
+    <label>成员</label><select id="rMem">${mems}</select>
+    <label>类型</label><select id="rType" onchange="syncPts()">${types}</select>
+    <label>分值</label><input type="text" id="rPts" value="3">
+    <label>备注（选填，不公开）</label><input type="text" id="rNote">
+    <div class="actions"><button class="btn ghost" onclick="closeModal()">取消</button>
+    <button class="btn" onclick="addRecord()">保存</button></div>`);
+}
+function syncPts(){
+  const i = Number($('#rType').value);
+  $('#rPts').value = TYPE_PRESET[i].points;
+}
+async function addRecord(){
+  const mi = $('#rType').value;
+  const preset = TYPE_PRESET[Number(mi)];
+  const pts = Number(($('#rPts').value||'0').trim());
+  if (isNaN(pts)) return toast('分值无效', true);
+  DATA.records.push({
+    id: uid('r'), activityId: $('#rAct').value, memberId: $('#rMem').value,
+    type: preset.type, points: pts, note: ($('#rNote').value||'').trim(),
+    createdAt: new Date().toISOString()
+  });
+  await commit('记分：' + preset.label); closeModal(); render();
+}
+
+function openUpload(){
+  if (!guardAdmin()) return;
+  openModal(`<h3>上传资料</h3><p class="hint">图片 / PDF / 表格 / 文档，单个 ≤ 20MB。</p>
+    <label>选择文件</label><input type="file" id="upFile" multiple>
+    <label>分类</label><select id="upCat">${CATS.map(c=>`<option>${c}</option>`).join('')}</select>
+    <div class="actions"><button class="btn ghost" onclick="closeModal()">取消</button>
+    <button class="btn" id="upBtn" onclick="doUpload()">上传</button></div>
+    <p class="hint" id="upHint" style="margin-top:8px"></p>`);
+}
+async function fileToB64(file){
+  const buf = await file.arrayBuffer();
+  let bin = '';
+  const bytes = new Uint8Array(buf);
+  const chunk = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunk){
+    bin += String.fromCharCode.apply(null, bytes.subarray(i, i+chunk));
+  }
+  return btoa(bin);
+}
+function safeName(n){
+  return n.replace(/[\/\\:*?"<>|]/g, '_').replace(/\s+/g, '-');
+}
+async function doUpload(){
+  const input = $('#upFile');
+  const files = Array.from(input.files || []);
+  if (!files.length) return toast('请选择文件', true);
+  const cat = $('#upCat').value || '其他';
+  const hint = $('#upHint');
+  $('#upBtn').disabled = true;
+  for (const f of files){
+    if (f.size > 20 * 1024 * 1024){ toast(`${f.name} 超过 20MB，跳过`, true); continue; }
+    hint.textContent = `正在上传 ${f.name} …`;
+    try{
+      const b64 = await fileToB64(f);
+      const ext = (f.name.split('.').pop() || '').toLowerCase();
+      const path = `${CFG.filesDir}/${Date.now()}-${safeName(f.name)}`;
+      await ghPut(path, b64, '上传资料：' + f.name);
+      const url = `https://cdn.jsdelivr.net/gh/${CFG.owner}/${CFG.repo}@${CFG.branch}/${path}`;
+      DATA.files.push({ name: f.name, path, url, category: cat, size: f.size, ext, uploadedAt: new Date().toISOString() });
+      hint.textContent = `${f.name} 已上传`;
+    }catch(e){
+      toast('上传失败：' + e.message, true);
+      hint.textContent = '上传失败：' + e.message;
+    }
+  }
+  await commit('更新资料清单');
+  $('#upBtn').disabled = false;
+  closeModal(); render();
+}
+
+/* ================== 保存 ================== */
+async function commit(message){
+  try{
+    await saveData(message);
+    toast('已保存 · ' + message);
+  }catch(e){
+    toast('保存失败：' + e.message, true);
+  }
+}
+
+/* ================== 启动 ================== */
+(async function init(){
+  await loadData();
+  if (TOKEN) await verifyAdmin();
+  renderAdminBtn();
+  render();
+})();
+</script>
+</body>
+</html>
