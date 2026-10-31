@@ -260,6 +260,7 @@ footer .base{margin-top:44px;padding-top:20px;border-top:1px solid rgba(30,18,6,
       <a href="#/board" data-r="board">榜单</a>
       <a href="#/activities" data-r="activities">活动</a>
       <a href="#/members" data-r="members">成员</a>
+      <a href="#/team" data-r="team">团队</a>
       <a href="#/people" data-r="people">人才库</a>
       <a href="#/files" data-r="files">资料库</a>
       <a href="#/sop" data-r="sop">SOP</a>
@@ -280,7 +281,7 @@ footer .base{margin-top:44px;padding-top:20px;border-top:1px solid rgba(30,18,6,
       <div class="cols">
         <div><h4>快速进入</h4>
           <a href="#/board">积分榜</a><a href="#/activities">活动</a>
-          <a href="#/people">人才库</a><a href="#/files">资料库</a></div>
+          <a href="#/team">团队</a><a href="#/people">人才库</a><a href="#/files">资料库</a></div>
         <div><h4>标准</h4>
           <a href="#/sop">活动 SOP</a>
           <a href="https://hoolexic-hxl.github.io/crzm-sop/" target="_blank" rel="noopener">SOP 网页版（对外）</a>
@@ -381,6 +382,59 @@ function paintAdmin(){
   b.classList.toggle('on', IS_ADMIN);
 }
 
+
+function viewTeam(){
+  const pub = PUB();
+  const people2025 = pub.people2025 || '500';
+  const depts = [
+    {no:'01', name:'运营部', desc:'成人之美运转的总枢纽。统筹全年活动顶层策划、SOP 设计与落地管控，搭建标准化运营体系，同时承担档案管理与资源统筹。', tags:['活动策划','SOP','档案']},
+    {no:'02', name:'事业部', desc:'聚焦「成就事业、成就圈层」。深耕事业赋能、资源对接与行业联盟，组织名企游学、企业走访、行业沙龙与干货分享。', tags:['企业走访','行业沙龙','资源对接']},
+    {no:'03', name:'关系部', desc:'通过主题联谊、兴趣社交搭建高品质交友平台；同时聚焦家庭关系经营，开展家庭日、亲子共创与成长沙龙。', tags:['联谊','家庭日','亲子']}
+  ];
+  const leads = (DATA.members||[]).map(m=>m.nickname||m.name).filter(Boolean);
+  return `
+  <section class="pad" style="padding-top:140px"><div class="wrap">
+    <div class="shead"><div class="lab">ABOUT · TEAM</div><h2>成人之美</h2>
+      <p>深源青创中心旗下，专为青创学员搭建的活动组织 —— 以人生大运营为基础，链接姻缘、成长、创业与资源，助力事业与生活的双重圆满。</p></div>
+
+    <div class="stats" style="margin-top:8px">
+      <div class="stat"><b>${pub.p2025||'20+'}</b><span>2025 年 活 动 场 次</span></div>
+      <div class="stat"><b>${people2025}</b><span>2025 年 参 与 人 次</span></div>
+      <div class="stat"><b>${(DATA.activities||[]).length}</b><span>系 统 内 活 动</span></div>
+      <div class="stat"><b>${pub.people||126}</b><span>人 才 库 参 与 者</span></div>
+    </div>
+
+    <div class="shead" style="margin-top:76px"><div class="lab">STRUCTURE</div><h2 style="font-size:26px">三个部门，一条链路</h2></div>
+    <div class="cards">${depts.map(d=>`
+      <div class="card"><div class="no">${d.no}</div><h3>${d.name}</h3><p>${d.desc}</p>
+        <div class="foot" style="display:flex;gap:6px;flex-wrap:wrap">${d.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div></div>`).join('')}
+    </div>
+
+    <div class="shead" style="margin-top:76px"><div class="lab">ORGANISATION</div><h2 style="font-size:26px">深圳本部 · 潮州联络处 · 汕头中心</h2>
+      <p>深圳本部设运营部 / 事业部 / 关系部；潮州设联络处；汕头中心规划建设中。</p></div>
+
+    ${leads.length?`<div class="shead" style="margin-top:56px"><div class="lab">统筹组</div><h2 style="font-size:22px">现在在带这件事的人</h2></div>
+    <div class="files">${leads.map((n,i)=>`<div class="file"><div class="ic">0${i+1}</div>
+      <div class="info"><b>${esc(n)}</b><small>${esc((DATA.members[i]||{}).group||'统筹组')}</small></div></div>`).join('')}</div>`:''}
+
+    <div class="shead" style="margin-top:76px"><div class="lab">WHAT WE DO</div><h2 style="font-size:26px">四成四美</h2></div>
+    <div class="cards two">
+      <div class="card"><div class="no">四成</div><h3>成就事业 · 圈层 · 家庭 · 姻缘</h3>
+        <p>名企游学、企业走访、行业沙龙、主题联谊、家庭日、亲子共创 —— 一年二十余场，覆盖事业与生活的每个面向。</p></div>
+      <div class="card"><div class="no">四美</div><h3>愿景美 · 结果美 · 过程美 · 关系美</h3>
+        <p>不是把人凑在一起，而是让每次相遇都有后续：活动有 SOP，参与有记录，复盘有沉淀。</p></div>
+    </div>
+
+    <div class="shead" style="margin-top:76px"><div class="lab">JOIN</div><h2 style="font-size:26px">怎么参与</h2>
+      <p>成人之美的活动面向青创学员开放。想参加或想加入执行团队，在青创社群里找统筹组，或在活动现场找签到台。</p></div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+      <a class="btn small" href="#/activities">看最近的活动</a>
+      <a class="btn small ghost" href="#/sop">看活动 SOP</a>
+      <a class="btn small ghost" href="#/files">下载资料</a>
+    </div>
+  </div></section>`;
+}
+
 /* ================= 人才库 / 复盘（私有仓库） ================= */
 const PRIV = { repo:'crzm-people', peoplePath:'people.json', retroPath:'retros.json' };
 let PEOPLE = {people:[]};
@@ -477,6 +531,7 @@ const TYPES = [
 const TLABEL = {signup:'报名',attended:'到场',noshow:'未到',contribution:'贡献',feedback:'反馈',custom:'自定义'};
 const pts = id => DATA.records.filter(r=>r.memberId===id).reduce((s,r)=>s+Number(r.points||0),0);
 const attended = id => new Set(DATA.records.filter(r=>r.memberId===id && r.type==='attended').map(r=>r.activityId)).size;
+const PUB = () => Object.assign({people:126, sessions:0, p2025:'20+', people2025:'500'}, DATA.meta?.publicStats || {});
 const thisMonth = () => DATA.activities.filter(a=>(a.date||'').slice(0,7)===new Date().toISOString().slice(0,7)).length;
 
 /* ================= 页面 ================= */
@@ -488,6 +543,7 @@ function render(){
   else if (r==='board') v.innerHTML = viewBoard();
   else if (r==='activities') v.innerHTML = viewActivities();
   else if (r==='members') v.innerHTML = viewMembers();
+  else if (r==='team') v.innerHTML = viewTeam();
   else if (r==='people') v.innerHTML = viewPeople();
   else if (r==='files') v.innerHTML = viewFiles();
   else if (r==='sop') v.innerHTML = viewSop();
@@ -523,10 +579,10 @@ function viewHome(){
   return hero() + `
   <section class="pad"><div class="wrap">
     <div class="stats">
-      <div class="stat"><b>${DATA.members.length}</b><span>成 员</span></div>
-      <div class="stat"><b>${DATA.activities.length}</b><span>活 动 场 次</span></div>
-      <div class="stat"><b>${thisMonth()}</b><span>本 月 活 动</span></div>
-      <div class="stat"><b>${DATA.records.reduce((s,r)=>s+Number(r.points||0),0)}</b><span>累 计 积 分</span></div>
+      <div class="stat"><b>${PUB().p2025||'20+'}</b><span>2025 年 活 动 场 次</span></div>
+      <div class="stat"><b>${PUB().people2025||'500'}</b><span>2025 年 参 与 人 次</span></div>
+      <div class="stat"><b>${DATA.activities.length}</b><span>系 统 内 活 动</span></div>
+      <div class="stat"><b>${PUB().people||126}</b><span>人 才 库 参 与 者</span></div>
     </div>
   </div></section>
 
