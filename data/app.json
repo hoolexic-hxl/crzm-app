@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "updatedAt": "2026-10-31T12:00:00Z",
+    "note": "成人之美活动系统 · 初始数据"
+  },
+  "members": [
+    { "id": "m1", "name": "金湖", "nickname": "金湖 K 🎾", "group": "统筹组", "createdAt": "2026-10-31" },
+    { "id": "m2", "name": "Kaka", "nickname": "Kaka Lin", "group": "统筹组", "createdAt": "2026-10-31" },
+    { "id": "m3", "name": "荔子", "nickname": "荔", "group": "统筹组", "createdAt": "2026-10-31" },
+    { "id": "m4", "name": "晶晶", "nickname": "晶晶乐道Shining", "group": "统筹组", "createdAt": "2026-10-31" }
+  ],
+  "activities": [
+    { "id": "a1", "title": "友友碰头会 · 内测", "date": "2026-10-31", "place": "待定", "createdAt": "2026-10-31" }
+  ],
+  "records": [],
+  "files": []
+}
