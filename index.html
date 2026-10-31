@@ -365,7 +365,7 @@ const PRIV = { repo:'crzm-people', peoplePath:'people.json', retroPath:'retros.j
 let PEOPLE = {people:[]};
 let RETROS = {retros:[]};
 let PRIV_READY = false;
-let PF = {q:'', gender:'', age:'', industry:'', cohort:''};
+let PF = {q:'', gender:'', age:'', edu:'', industry:'', cohort:''};
 
 async function ghGetRepo(repo, path){
   const r = await fetch(`${API}/repos/${CFG.owner}/${repo}/contents/${path}?ref=main&t=${Date.now()}`,
@@ -417,7 +417,8 @@ const ptitle = p => [p.company, p.title].filter(Boolean).join(' · ');
 function filteredPeople(){
   const q = (PF.q||'').trim().toLowerCase();
   return (PEOPLE.people||[]).filter(p=>{
-    if (PF.gender && p.gender !== PF.gender) return false;
+    if (PF.gender === '?' ? !!p.gender : (PF.gender && p.gender !== PF.gender)) return false;
+    if (PF.edu && p.education !== PF.edu) return false;
     if (PF.industry && p.industry !== PF.industry) return false;
     if (PF.cohort && p.cohort !== PF.cohort) return false;
     if (PF.age){
@@ -757,6 +758,7 @@ function viewPeople(){
   </div></section>`;
 
   const industries = uniq((PEOPLE.people||[]).map(p=>p.industry)).sort();
+  const eduList = uniq((PEOPLE.people||[]).map(p=>p.education)).sort();
   const cohorts = uniq((PEOPLE.people||[]).map(p=>p.cohort)).sort((a,b)=>parseInt(a)-parseInt(b));
   return `
   <section class="pad" style="padding-top:140px"><div class="wrap">
@@ -773,10 +775,15 @@ function viewPeople(){
       <select onchange="PF.gender=this.value; refreshPeople()">
         <option value="">性别 · 全部</option>
         ${['男','女'].map(g=>`<option ${PF.gender===g?'selected':''}>${g}</option>`).join('')}
+        <option value="?" ${PF.gender==='?'?'selected':''}>待确认</option>
       </select>
       <select onchange="PF.age=this.value; refreshPeople()">
         <option value="">年龄 · 全部</option>
         ${['18-25','26-30','31-35','36-40','41-50','51-200'].map(a=>`<option value="${a}" ${PF.age===a?'selected':''}>${a.replace('-200','+').replace('-','–')} 岁</option>`).join('')}
+      </select>
+      <select onchange="PF.edu=this.value; refreshPeople()">
+        <option value="">学历 · 全部</option>
+        ${eduList.map(e=>`<option ${PF.edu===e?'selected':''}>${esc(e)}</option>`).join('')}
       </select>
       <select onchange="PF.industry=this.value; refreshPeople()">
         <option value="">行业 · 全部</option>
@@ -799,12 +806,12 @@ function peopleTable(){
   if (c) c.textContent = `${rows.length} / ${(PEOPLE.people||[]).length} 人`;
   if (!rows.length) return `<div class="empty"><b>没有匹配的人</b>换个筛选条件，或点右上角「＋ 添加」</div>`;
   return `<table class="table people"><thead><tr>
-      <th>姓名 / 昵称</th><th>性别</th><th>年龄</th><th>行业</th><th>公司 · 职位</th><th>联系</th><th class="num">参与</th></tr></thead>
+      <th>姓名 / 昵称</th><th>性别</th><th>年龄</th><th>学历</th><th>公司 · 职位</th><th>联系</th><th class="num">参与</th></tr></thead>
     <tbody>${rows.map(p=>`<tr style="cursor:pointer" onclick="openPersonDetail('${p.id}')">
       <td><b>${esc(p.name||pname(p))}</b>${p.name&&p.nickname&&p.nickname!==p.name?`<span class="tag">${esc(p.nickname)}</span>`:''}</td>
-      <td>${esc(p.gender||'—')}</td>
+      <td>${esc(p.gender||'待确认')}</td>
       <td>${ageOf(p)??'—'}</td>
-      <td>${esc(p.industry||'—')}</td>
+      <td>${esc(p.education||'—')}</td>
       <td>${esc(ptitle(p)||'—')}</td>
       <td class="small-muted">${esc(p.phone||p.wechat||'—')}</td>
       <td class="num">${(p.activities||[]).length}</td></tr>`).join('')}
@@ -831,6 +838,8 @@ function openPersonDetail(id){
     <dl class="kv">
       ${row('电话', p.phone)}${row('微信', p.wechat)}${row('出生', p.birth)}
       ${row('公司', p.company)}${row('职位', p.title)}${row('行业', p.industry)}
+      ${row('祖籍', p.hometown)}${row('毕业学校', p.school)}${row('学历', p.education)}
+      ${row('晚宴', p.dinner)}${row('预计到场', p.eta)}
       ${row('来源', p.source)}${row('期待收获', p.expect)}
       ${row('参与活动', acts.map(a=>a.title).join('、'))}
       ${row('备注', p.note)}
@@ -856,6 +865,10 @@ function openPersonForm(id){
       ${f('电话','phone')}${f('微信','wechat')}
       ${f('公司','company')}${f('职位','title')}
       ${f('行业','industry')}${f('青创期数','cohort','text','如 21')}
+      ${f('祖籍','hometown')}<div><label>学历</label><select id="pf_education">
+        ${['','高中及以下','大专','本科','硕士','博士','其他'].map(v=>`<option ${p.education===v?'selected':''}>${v||'—'}</option>`).join('')}</select></div>
+      ${f('毕业学校','school')}<div><label>参加晚宴</label><select id="pf_dinner">
+        ${['','是','否'].map(v=>`<option ${p.dinner===v?'selected':''}>${v||'—'}</option>`).join('')}</select></div>
     </div>
     <label>期待收获 / 诉求</label><input type="text" id="pf_expect" value="${esc(p.expect||'')}">
     <label>标签（逗号分隔，用于后续匹配）</label><input type="text" id="pf_tags" value="${esc((p.tags||[]).join('、'))}">
@@ -873,7 +886,9 @@ async function savePerson(id){
     name:g('name'), nickname:g('nickname'), gender:g('gender')==='—'?'':g('gender'),
     birth:g('birth'), phone:g('phone'), wechat:g('wechat'), company:g('company'),
     title:g('title'), industry:g('industry'), cohort:g('cohort'), expect:g('expect'),
-    source:g('source'), tags, note:g('note')
+    hometown:g('hometown'), school:g('school'), education:g('education')==='—'?'':g('education'),
+    dinner:g('dinner')==='—'?'':g('dinner'), eta:g('eta'),
+    source:g('source'), tags, note:g('note'), genderGuess:false
   };
   if (id){
     const p = PEOPLE.people.find(x=>x.id===id); Object.assign(p, rec);
@@ -907,8 +922,8 @@ async function doImportPeople(){
   catch(e){ toast('保存失败：'+e.message, true); }
 }
 function exportPeople(){
-  const cols = ['name','nickname','gender','birth','phone','wechat','company','title','industry','cohort','expect','source','note'];
-  const head = ['姓名','昵称','性别','出生年月','电话','微信','公司','职位','行业','期数','期待','来源','备注'];
+  const cols = ['name','nickname','gender','birth','phone','wechat','company','title','industry','cohort','education','school','hometown','expect','source','note'];
+  const head = ['姓名','昵称','性别','出生年月','电话','微信','公司','职位','行业','期数','学历','毕业学校','祖籍','期待','来源','备注'];
   const esc2 = v => '"' + String(v??'').replace(/"/g,'""') + '"';
   const csv = [head.map(esc2).join(',')].concat(
     (PEOPLE.people||[]).map(p=>cols.map(k=>esc2(p[k])).join(','))).join('\n');
