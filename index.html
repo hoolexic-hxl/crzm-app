@@ -4,11 +4,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>成人之美 · 深源青创</title>
+<meta name="theme-color" content="#F19300">
+<meta name="description" content="深源青创 · 成人之美 —— 活动系统：积分榜、活动、成员、资料库与活动 SOP。">
+<link rel="icon" href="assets/favicon.png">
 <style>
 :root{
-  --ink:#0B0B0C; --ink-2:#17171A; --paper:#FFFFFF; --bg:#F4F3F0;
-  --gray:#6B675F; --light:#9A958B; --line:#E5E2DA; --line-dark:#2A2A2C;
-  --gold:#A8722A; --gold-soft:#F6EDDD;
+  --ink:#1E1206; --ink-2:#2B1B09; --paper:#FFFFFF; --bg:#FBF4E7;
+  --gray:#6E5A43; --light:#9C8A72; --line:#EDE0C9; --line-dark:#3A2711;
+  --gold:#C4720B; --gold-soft:#FCEFD8;
+  --brand:#F19300; --brand-2:#EE8003; --brand-deep:#D97706;
   --max:1120px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -25,46 +29,49 @@ header.scrolled{background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) 
 header.scrolled .brand b, header.scrolled nav a{color:var(--ink)}
 header.scrolled nav a.on{color:var(--gold)}
 .brand{display:flex;align-items:center;gap:11px;text-decoration:none;margin-right:auto}
-.logo-slot{width:34px;height:34px;border-radius:9px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;flex:none;border:1px solid rgba(255,255,255,.18)}
-.logo-slot img{width:100%;height:100%;object-fit:contain;display:none}
-.logo-slot .mark{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:.02em}
-header.scrolled .logo-slot{border-color:var(--line)}
-.brand b{font-size:14.5px;font-weight:600;color:#fff;letter-spacing:.02em;line-height:1.3}
-.brand small{display:block;font-size:9.5px;letter-spacing:.24em;color:rgba(255,255,255,.5);font-weight:400}
+.logo-slot{width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex:none}
+.logo-slot img{width:100%;height:100%;object-fit:contain;display:block}
+.logo-slot .lg-brand{display:none}
+header.scrolled .logo-slot .lg-ink{display:none}
+header.scrolled .logo-slot .lg-brand{display:block}
+.brand b{font-size:14.5px;font-weight:600;color:var(--ink);letter-spacing:.02em;line-height:1.3}
+.brand small{display:block;font-size:9.5px;letter-spacing:.24em;color:rgba(30,18,6,.48);font-weight:400}
 header.scrolled .brand small{color:var(--light)}
 nav{display:flex;gap:2px;flex-wrap:wrap}
-nav a{font-size:12.5px;color:rgba(255,255,255,.66);text-decoration:none;padding:7px 11px;border-radius:8px;transition:.2s;white-space:nowrap}
-nav a:hover{color:#fff}
+nav a{font-size:12.5px;color:rgba(30,18,6,.66);text-decoration:none;padding:7px 11px;border-radius:8px;transition:.2s;white-space:nowrap}
+nav a:hover{color:var(--ink)}
 header.scrolled nav a:hover{color:var(--ink)}
-nav a.on{color:#fff;background:rgba(255,255,255,.12)}
+nav a.on{color:var(--ink);background:rgba(30,18,6,.10)}
 header.scrolled nav a.on{background:transparent;color:var(--gold);font-weight:600}
-.hdr-btn{font:inherit;font-size:12px;padding:7px 13px;border-radius:8px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;cursor:pointer;transition:.2s}
-.hdr-btn:hover{background:rgba(255,255,255,.14)}
+.hdr-btn{font:inherit;font-size:12px;padding:7px 13px;border-radius:8px;border:1px solid rgba(30,18,6,.28);background:transparent;color:var(--ink);cursor:pointer;transition:.2s}
+.hdr-btn:hover{background:rgba(255,255,255,.35)}
 header.scrolled .hdr-btn{border-color:var(--line);color:var(--ink)}
 header.scrolled .hdr-btn:hover{background:#F7F5F0}
-.hdr-btn.on{border-color:var(--gold);color:var(--gold);background:rgba(168,114,42,.08)}
+.hdr-btn.on{border-color:rgba(30,18,6,.5);color:var(--ink);background:rgba(255,255,255,.4)}
 
 /* ---------- hero ---------- */
-.hero{position:relative;min-height:94vh;background:var(--ink);color:#fff;display:flex;align-items:center;overflow:hidden}
+.hero{position:relative;min-height:94vh;background:linear-gradient(135deg,#F7A61C 0%,var(--brand) 46%,#EC8500 100%);color:var(--ink);display:flex;align-items:center;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:0;background:
-  radial-gradient(900px 520px at 72% 18%, rgba(168,114,42,.20), transparent 60%),
-  radial-gradient(700px 500px at 18% 88%, rgba(255,255,255,.06), transparent 60%);}
-.hero::after{content:"";position:absolute;inset:0;opacity:.18;background-image:linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px);background-size:100% 96px}
+  radial-gradient(900px 520px at 78% 12%, rgba(255,255,255,.28), transparent 62%),
+  radial-gradient(760px 560px at 6% 94%, rgba(200,101,0,.30), transparent 60%);}
+.hero::after{content:"";position:absolute;inset:0;opacity:.35;background-image:linear-gradient(rgba(30,18,6,.07) 1px, transparent 1px);background-size:100% 96px}
+.hero-mark{position:absolute;right:-210px;top:50%;transform:translateY(-50%);width:720px;opacity:.05;z-index:1;pointer-events:none}
+.hero-mark img{width:100%;display:block}
 .hero .inner{position:relative;z-index:2;width:100%;max-width:var(--max);margin:0 auto;padding:120px 28px 80px}
-.kicker{font-size:10.5px;letter-spacing:.34em;color:rgba(255,255,255,.5);margin-bottom:26px}
+.kicker{font-size:10.5px;letter-spacing:.34em;color:rgba(30,18,6,.62);margin-bottom:26px}
 .hero h1{font-size:clamp(56px,9vw,120px);line-height:.96;letter-spacing:-.03em;font-weight:700}
-.hero h1 .thin{display:block;font-weight:300;color:rgba(255,255,255,.42);font-size:.30em;letter-spacing:.14em;margin-top:26px}
-.hero .lede{max-width:520px;margin-top:30px;font-size:15.5px;line-height:1.85;color:rgba(255,255,255,.62)}
+.hero h1 .thin{display:block;font-weight:300;color:rgba(30,18,6,.64);font-size:.30em;letter-spacing:.14em;margin-top:26px}
+.hero .lede{max-width:520px;margin-top:30px;font-size:15.5px;line-height:1.85;color:rgba(30,18,6,.8)}
 .hero .actions{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
 .btn{font:inherit;font-size:13.5px;padding:13px 22px;border-radius:999px;border:1px solid transparent;background:var(--ink);color:#fff;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:.2s}
 .btn:hover{transform:translateY(-1px)}
 .btn.light{background:#fff;color:var(--ink)}
-.btn.ghost{background:transparent;border-color:rgba(255,255,255,.26);color:#fff}
-.btn.ghost:hover{background:rgba(255,255,255,.1)}
+.btn.ghost{background:transparent;border-color:rgba(30,18,6,.32);color:var(--ink)}
+.btn.ghost:hover{background:rgba(255,255,255,.4)}
 .btn.small{font-size:12px;padding:8px 14px}
 .hero .meta{position:absolute;left:0;right:0;bottom:34px;z-index:2}
-.hero .meta .wrap{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.38);letter-spacing:.14em}
-.scroll-hint{position:absolute;right:28px;bottom:110px;z-index:2;font-size:10px;letter-spacing:.3em;color:rgba(255,255,255,.35);writing-mode:vertical-rl}
+.hero .meta .wrap{display:flex;justify-content:space-between;font-size:11px;color:rgba(30,18,6,.5);letter-spacing:.14em}
+.scroll-hint{position:absolute;right:28px;bottom:110px;z-index:2;font-size:10px;letter-spacing:.3em;color:rgba(30,18,6,.45);writing-mode:vertical-rl}
 
 /* ---------- sections ---------- */
 main{background:var(--paper)}
@@ -159,17 +166,16 @@ textarea{min-height:100px;resize:vertical}
 .toast.err{background:#8E3B32}
 
 /* footer */
-footer{background:var(--ink);color:rgba(255,255,255,.5);padding:64px 0 40px}
+footer{background:linear-gradient(180deg,var(--brand) 0%,var(--brand-2) 100%);color:rgba(30,18,6,.66);padding:64px 0 40px}
 footer .top{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-start}
-footer .logo-slot{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18)}
-footer .logo-slot .mark{color:#fff}
-footer .brand b{color:#fff}
-footer .brand small{color:rgba(255,255,255,.4)}
+footer .logo-slot{width:32px;height:32px}
+footer .brand b{color:var(--ink)}
+footer .brand small{color:rgba(30,18,6,.45)}
 footer .cols{display:flex;gap:60px;flex-wrap:wrap}
-footer h4{font-size:10.5px;letter-spacing:.22em;color:rgba(255,255,255,.35);font-weight:400;margin-bottom:12px}
-footer a{display:block;font-size:12.5px;color:rgba(255,255,255,.62);text-decoration:none;margin-bottom:8px}
-footer a:hover{color:#fff}
-footer .base{margin-top:44px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;font-size:11px;flex-wrap:wrap;gap:8px}
+footer h4{font-size:10.5px;letter-spacing:.22em;color:rgba(30,18,6,.45);font-weight:400;margin-bottom:12px}
+footer a{display:block;font-size:12.5px;color:rgba(30,18,6,.7);text-decoration:none;margin-bottom:8px}
+footer a:hover{color:var(--ink)}
+footer .base{margin-top:44px;padding-top:20px;border-top:1px solid rgba(30,18,6,.18);display:flex;justify-content:space-between;font-size:11px;flex-wrap:wrap;gap:8px}
 
 /* reveal */
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
@@ -195,8 +201,8 @@ footer .base{margin-top:44px;padding-top:20px;border-top:1px solid rgba(255,255,
   <div class="bar">
     <a class="brand" href="#/">
       <span class="logo-slot">
-        <img id="logoImg" alt="" src="assets/logo.png" onerror="this.style.display='none';document.getElementById('logoMark').style.display='block'">
-        <span class="mark" id="logoMark">成</span>
+        <img class="lg lg-ink" src="assets/logo-ink.png" alt="成人之美">
+        <img class="lg lg-brand" src="assets/logo-brand.png" alt="">
       </span>
       <b>深源青创 · 成人之美<small>CHENG REN ZHI MEI</small></b>
     </a>
@@ -219,7 +225,7 @@ footer .base{margin-top:44px;padding-top:20px;border-top:1px solid rgba(255,255,
   <div class="wrap">
     <div class="top">
       <a class="brand" href="#/">
-        <span class="logo-slot"><span class="mark" style="color:#fff">成</span></span>
+        <span class="logo-slot"><img src="assets/logo-ink.png" alt="成人之美"></span>
         <b>深源青创 · 成人之美<small>CHENG REN ZHI MEI</small></b>
       </a>
       <div class="cols">
@@ -358,6 +364,7 @@ function render(){
 function hero(){
   return `
   <section class="hero">
+    <div class="hero-mark"><img src="assets/logo-ink.png" alt=""></div>
     <div class="inner">
       <div class="kicker">深源青创 · 成人之美　/　ACTIVITY SYSTEM</div>
       <h1>成人之美<span class="thin">以美聚人 · 以创成事</span></h1>
