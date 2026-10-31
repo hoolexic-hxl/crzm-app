@@ -808,7 +808,7 @@ function peopleTable(){
   return `<table class="table people"><thead><tr>
       <th>姓名 / 昵称</th><th>性别</th><th>年龄</th><th>学历</th><th>公司 · 职位</th><th>联系</th><th class="num">参与</th></tr></thead>
     <tbody>${rows.map(p=>`<tr style="cursor:pointer" onclick="openPersonDetail('${p.id}')">
-      <td><b>${esc(p.name||pname(p))}</b>${p.name&&p.nickname&&p.nickname!==p.name?`<span class="tag">${esc(p.nickname)}</span>`:''}${(p.tags||[]).includes('核心团队候选')?'<span class="tag" style="color:var(--gold);border-color:var(--gold)">团队</span>':''}</td>
+      <td><b>${esc(p.name||pname(p))}</b>${p.name&&p.nickname&&p.nickname!==p.name?`<span class="tag">${esc(p.nickname)}</span>`:''}${(p.tags||[]).includes('执行团队候选')?'<span class="tag" style="color:var(--gold);border-color:var(--gold)">团队</span>':''}</td>
       <td>${esc(p.gender||'待确认')}</td>
       <td>${ageOf(p)??'—'}</td>
       <td>${esc(p.education||'—')}</td>
