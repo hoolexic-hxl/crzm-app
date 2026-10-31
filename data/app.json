@@ -104,6 +104,15 @@
       "size": 3571492,
       "ext": "pdf",
       "uploadedAt": "2026-10-31"
+    },
+    {
+      "name": "复盘模板-一页纸.docx",
+      "label": "一页纸复盘模板",
+      "path": "files/复盘模板-一页纸.docx",
+      "category": "模板表单",
+      "size": 37520,
+      "ext": "docx",
+      "uploadedAt": "2026-10-31"
     }
   ]
 }
