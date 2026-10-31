@@ -37,7 +37,7 @@ header.scrolled .logo-slot .lg-brand{display:block}
 .brand b{font-size:14.5px;font-weight:600;color:var(--ink);letter-spacing:.02em;line-height:1.3}
 .brand small{display:block;font-size:9.5px;letter-spacing:.24em;color:rgba(30,18,6,.48);font-weight:400}
 header.scrolled .brand small{color:var(--light)}
-nav{display:flex;gap:2px;flex-wrap:wrap}
+nav{display:flex;gap:4px;flex-wrap:wrap}
 nav a{font-size:12.5px;color:rgba(30,18,6,.66);text-decoration:none;padding:7px 11px;border-radius:8px;transition:.2s;white-space:nowrap}
 nav a:hover{color:var(--ink)}
 header.scrolled nav a:hover{color:var(--ink)}
@@ -177,6 +177,34 @@ footer a{display:block;font-size:12.5px;color:rgba(30,18,6,.7);text-decoration:n
 footer a:hover{color:var(--ink)}
 footer .base{margin-top:44px;padding-top:20px;border-top:1px solid rgba(30,18,6,.18);display:flex;justify-content:space-between;font-size:11px;flex-wrap:wrap;gap:8px}
 
+/* people / private */
+.people th:nth-child(2),.people td:nth-child(2){width:66px}
+.people th:nth-child(3),.people td:nth-child(3){width:62px}
+.people th:nth-child(4),.people td:nth-child(4){width:150px}
+.people th:nth-child(6),.people td:nth-child(6){width:150px}
+.people th:nth-child(7),.people td:nth-child(7){width:58px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:20px}
+.toolbar input[type=text]{max-width:230px}
+.toolbar select{width:auto;min-width:120px;max-width:190px}
+.toolbar .count{margin-left:auto;font-size:11.5px;color:var(--light);letter-spacing:.1em}
+.locked{border:1px solid var(--line);border-radius:18px;padding:56px 30px;text-align:center;background:linear-gradient(180deg,#FFFDF8,#FBF4E7)}
+.locked b{display:block;font-size:17px;margin-bottom:8px}
+.locked p{color:var(--gray);font-size:13.5px;max-width:460px;margin:0 auto 20px}
+.kv{display:grid;grid-template-columns:104px 1fr;gap:12px 18px;font-size:13.5px;margin:6px 0 4px}
+.kv dt{color:var(--light);font-size:11px;letter-spacing:.1em;padding-top:3px}
+.kv dd{color:var(--ink);line-height:1.6}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:10.5px;border:1px solid var(--line);border-radius:999px;padding:2px 9px;color:var(--gray)}
+.pick{max-height:300px;overflow:auto;border:1px solid var(--line);border-radius:12px;padding:6px 12px;margin-top:8px}
+.pick label{display:flex;align-items:center;gap:10px;margin:0;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px;color:var(--ink);letter-spacing:0}
+.pick label:last-child{border-bottom:none}
+.pick input[type=checkbox]{width:16px;height:16px;accent-color:#1E1206;flex:none}
+.small-muted{font-size:11.5px;color:var(--light)}
+.retro-tag{font-size:10.5px;color:var(--gold);border:1px solid var(--gold);border-radius:999px;padding:1px 8px;margin-left:8px}
+.retro-tag.todo{color:var(--light);border-color:var(--line)}
+.cards.two{grid-template-columns:repeat(2,1fr)}
+@media (max-width:900px){ .cards.two{grid-template-columns:1fr} }
+
 /* reveal */
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
 .reveal.in{opacity:1;transform:none}
@@ -211,9 +239,9 @@ footer .base{margin-top:44px;padding-top:20px;border-top:1px solid rgba(30,18,6,
       <a href="#/board" data-r="board">榜单</a>
       <a href="#/activities" data-r="activities">活动</a>
       <a href="#/members" data-r="members">成员</a>
+      <a href="#/people" data-r="people">人才库</a>
       <a href="#/files" data-r="files">资料库</a>
       <a href="#/sop" data-r="sop">SOP</a>
-      <a href="#/about" data-r="about">说明</a>
     </nav>
     <button class="hdr-btn" id="adminBtn">管理员登录</button>
   </div>
@@ -230,14 +258,15 @@ footer .base{margin-top:44px;padding-top:20px;border-top:1px solid rgba(30,18,6,
       </a>
       <div class="cols">
         <div><h4>快速进入</h4>
-          <a href="#/board">积分榜</a><a href="#/activities">活动</a><a href="#/files">资料库</a></div>
+          <a href="#/board">积分榜</a><a href="#/activities">活动</a>
+          <a href="#/people">人才库</a><a href="#/files">资料库</a></div>
         <div><h4>标准</h4>
           <a href="#/sop">活动 SOP</a>
           <a href="https://hoolexic-hxl.github.io/crzm-sop/" target="_blank" rel="noopener">SOP 网页版（对外）</a>
           <a href="#/about">管理员说明</a></div>
         <div><h4>系统</h4>
-          <a href="https://github.com/hoolexic-hxl/crzm-app" target="_blank" rel="noopener">数据仓库</a>
-          <a href="#/about">隐私说明</a></div>
+          <a href="https://github.com/hoolexic-hxl/crzm-app" target="_blank" rel="noopener">公开数据仓库</a>
+          <a href="#/about">隐私说明</a><a href="#/about">管理员说明</a></div>
       </div>
     </div>
     <div class="base">
@@ -331,6 +360,80 @@ function paintAdmin(){
   b.classList.toggle('on', IS_ADMIN);
 }
 
+/* ================= 人才库 / 复盘（私有仓库） ================= */
+const PRIV = { repo:'crzm-people', peoplePath:'people.json', retroPath:'retros.json' };
+let PEOPLE = {people:[]};
+let RETROS = {retros:[]};
+let PRIV_READY = false;
+let PF = {q:'', gender:'', age:'', industry:'', cohort:''};
+
+async function ghGetRepo(repo, path){
+  const r = await fetch(`${API}/repos/${CFG.owner}/${repo}/contents/${path}?ref=main&t=${Date.now()}`,
+    {headers:ghH(), cache:'no-store'});
+  if (r.status === 404) return null;
+  if (!r.ok) throw new Error(`读取 ${repo}/${path} 失败 ${r.status}`);
+  const j = await r.json();
+  const bin = atob((j.content||'').replace(/\n/g,''));
+  const bytes = Uint8Array.from(bin, c=>c.charCodeAt(0));
+  return {sha:j.sha, data: JSON.parse(new TextDecoder().decode(bytes))};
+}
+async function ghPutRepo(repo, path, text, msg, sha){
+  const body = {message:msg, content:b64(text), branch:'main'};
+  if (sha) body.sha = sha;
+  const r = await fetch(`${API}/repos/${CFG.owner}/${repo}/contents/${path}`,
+    {method:'PUT', headers:ghH(), body:JSON.stringify(body)});
+  if (!r.ok){ const j = await r.json().catch(()=>({})); throw new Error((j.message||'写入失败')+' '+r.status); }
+  const j = await r.json(); return j.content.sha;
+}
+async function loadPrivate(){
+  PRIV_READY = false;
+  try{
+    const p = await ghGetRepo(PRIV.repo, PRIV.peoplePath);
+    if (p){ PEOPLE = p.data; PEOPLE._sha = p.sha; }
+    const r = await ghGetRepo(PRIV.repo, PRIV.retroPath);
+    if (r){ RETROS = r.data; RETROS._sha = r.sha; }
+    PRIV_READY = true;
+  }catch(e){ console.warn('private load failed', e); PRIV_READY = false; }
+  return PRIV_READY;
+}
+async function savePeople(msg){
+  PEOPLE._sha = await ghPutRepo(PRIV.repo, PRIV.peoplePath,
+    JSON.stringify(PEOPLE, (k,v)=> k==='_sha' ? undefined : v, 2), msg, PEOPLE._sha);
+}
+async function saveRetros(msg){
+  RETROS._sha = await ghPutRepo(PRIV.repo, PRIV.retroPath,
+    JSON.stringify(RETROS, (k,v)=> k==='_sha' ? undefined : v, 2), msg, RETROS._sha);
+}
+const ageOf = p => {
+  if (!p.birth) return null;
+  const y = +String(p.birth).slice(0,4), m = +String(p.birth).slice(5,7) || 1;
+  const now = new Date();
+  let a = now.getFullYear() - y;
+  if (now.getMonth()+1 < m) a--;
+  return a > 0 && a < 100 ? a : null;
+};
+const pname = p => p.nickname || p.name || '未命名';
+const ptitle = p => [p.company, p.title].filter(Boolean).join(' · ');
+function filteredPeople(){
+  const q = (PF.q||'').trim().toLowerCase();
+  return (PEOPLE.people||[]).filter(p=>{
+    if (PF.gender && p.gender !== PF.gender) return false;
+    if (PF.industry && p.industry !== PF.industry) return false;
+    if (PF.cohort && p.cohort !== PF.cohort) return false;
+    if (PF.age){
+      const a = ageOf(p); if (!a) return false;
+      const [lo,hi] = PF.age.split('-').map(Number);
+      if (a < lo || a > (hi||200)) return false;
+    }
+    if (q){
+      const s = [p.nickname,p.name,p.company,p.title,p.industry,p.phone,p.wechat,p.expect,p.note].join(' ').toLowerCase();
+      if (!s.includes(q)) return false;
+    }
+    return true;
+  });
+}
+const uniq = arr => [...new Set(arr.filter(Boolean))];
+
 /* ================= 计算 ================= */
 const TYPES = [
   {type:'signup', points:3, label:'报名 +3'},
@@ -354,6 +457,7 @@ function render(){
   else if (r==='board') v.innerHTML = viewBoard();
   else if (r==='activities') v.innerHTML = viewActivities();
   else if (r==='members') v.innerHTML = viewMembers();
+  else if (r==='people') v.innerHTML = viewPeople();
   else if (r==='files') v.innerHTML = viewFiles();
   else if (r==='sop') v.innerHTML = viewSop();
   else v.innerHTML = viewAbout();
@@ -459,19 +563,36 @@ function viewBoard(){
 function viewActivities(){
   const list = [...DATA.activities].reverse().map(a=>{
     const cnt = new Set(DATA.records.filter(r=>r.activityId===a.id).map(r=>r.memberId)).size;
+    const people = a.peopleCount ?? (PEOPLE.people||[]).filter(p=>(p.activities||[]).includes(a.id)).length;
+    const rt = retroOf(a.id);
+    const retroTag = rt ? `<span class="retro-tag">已复盘 ${fdate(rt.date||'')}</span>` : `<span class="retro-tag todo">未复盘</span>`;
     return `<div class="card reveal"><div class="no">${fdate(a.date)}</div>
-      <h3>${esc(a.title)}</h3><p>${esc(a.place||'地点待定')}</p>
-      <div class="foot">${cnt} 人参与 ${IS_ADMIN?`· <a href="javascript:openRecord('${a.id}')" style="text-decoration:underline">记分</a>`:''}</div></div>`;
+      <h3>${esc(a.title)} ${retroTag}</h3>
+      <p>${esc(a.place||'地点待定')}</p>
+      <div class="foot">${people} 人参与${cnt?` · ${cnt} 人记分`:''}</div>
+      ${IS_ADMIN?`<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
+        <button class="btn small ghost" onclick="openActivityPeople('${a.id}')">参与者</button>
+        <button class="btn small ghost" onclick="openRetro('${a.id}')">${rt?'改复盘':'写复盘'}</button>
+        <button class="btn small ghost" onclick="openRecord('${a.id}')">记分</button></div>`:''}</div>`;
   }).join('');
+  const retros = (RETROS.retros||[]).slice(0,3);
   return `
   <section class="pad" style="padding-top:140px"><div class="wrap">
     <div class="shead row reveal"><div><div class="lab">ACTIVITIES</div><h2>活动</h2>
-      <p>共 ${DATA.activities.length} 场 · 活动结束后记得补记签到与贡献</p></div>
+      <p>共 ${DATA.activities.length} 场 · 活动后补参与者、写复盘，经验才留得下来</p></div>
       ${IS_ADMIN?'<button class="btn small" onclick="openActivity()">＋ 新增活动</button>':''}</div>
     ${DATA.activities.length?`<div class="cards">${list}</div>`:`<div class="empty"><b>还没有活动</b>登录管理员后新增</div>`}
+    ${retros.length?`<div class="shead" style="margin-top:72px"><div class="lab">RETROSPECTIVE</div>
+      <h2 style="font-size:24px">最近复盘</h2></div>
+      <div class="cards two">${retros.map(r=>{
+        const a = DATA.activities.find(x=>x.id===r.activityId);
+        return `<div class="card"><div class="no">${fdate(r.date||'')} · 满意度 ${esc(r.rating||'—')}</div>
+          <h3>${esc(a?.title||'（活动已删除）')}</h3>
+          <p>${esc(r.fix||'—')}</p>
+          <div class="foot">${esc(r.good?('亮点：'+r.good).slice(0,60):'')}</div></div>`;
+      }).join('')}</div>`:''}
   </div></section>`;
 }
-
 function viewMembers(){
   const rows = DATA.members.map(m=>`<tr>
     <td><b>${esc(m.nickname||m.name)}</b>${m.nickname&&m.name&&m.nickname!==m.name?`<span class="tag">${esc(m.name)}</span>`:''}</td>
@@ -556,8 +677,30 @@ function viewSop(){
       <div class="file"><div class="ic">场地</div><div class="info"><b>场地变</b><small>提前备好第 2 个免费场地；变更 48 小时前通知参与者</small></div></div>
       <div class="file"><div class="ic">人员</div><div class="info"><b>志愿者请假</b><small>后备志愿者顶上；实在没人就一人多岗，砍掉最不重要的环节</small></div></div>
     </div>
+    <div class="shead" style="margin-top:72px"><div class="lab">RETROSPECTIVE · 复盘</div>
+      <h2 style="font-size:24px">活动后 48 小时，把经验留下来</h2></div>
+    <div class="sop-grid">
+      <div class="sop-col reveal"><h3>复盘四步</h3>
+        <div class="sop-item"><span class="t">T+2h</span><span>群发 3 个问题：哪一刻最有价值 / 哪里不舒服 / 下次希望有什么</span></div>
+        <div class="sop-item"><span class="t">T+1d</span><span>主理人 + 签到 + 引导各写 3 行：事实、问题、建议</span></div>
+        <div class="sop-item"><span class="t">T+2d</span><span>15 分钟线上复盘会，只讨论「下次改哪一条」</span></div>
+        <div class="sop-item"><span class="t">T+3d</span><span>一页复盘归档到本系统（活动 → 写复盘），并同步改进项</span></div>
+      </div>
+      <div class="sop-col reveal"><h3>一页复盘写什么</h3>
+        <div class="sop-item"><span class="t">数据</span><span>报名 / 到场 / 留存 / 满意度（1–5）</span></div>
+        <div class="sop-item"><span class="t">亮点</span><span>哪一刻最有价值，谁的贡献最大</span></div>
+        <div class="sop-item"><span class="t">问题</span><span>卡点发生在哪个环节，谁受影响</span></div>
+        <div class="sop-item"><span class="t">改进</span><span>下次只改一条，写清负责人和验收标准</span></div>
+      </div>
+      <div class="sop-col reveal"><h3>三条规矩</h3>
+        <div class="sop-item"><span class="t">01</span><span>对事不对人：说流程，不评价谁</span></div>
+        <div class="sop-item"><span class="t">02</span><span>只改一条：一次改太多等于没改</span></div>
+        <div class="sop-item"><span class="t">03</span><span>必须归档：不进系统的复盘等于没做</span></div>
+      </div>
+    </div>
     <div style="display:flex;gap:12px;margin-top:40px;flex-wrap:wrap">
-      <a class="btn small" href="${CFG.sopWeb}" target="_blank" rel="noopener">打开对外分享版</a>
+      <a class="btn small" href="#/activities">去写本场复盘</a>
+      <a class="btn small ghost" href="${CFG.sopWeb}" target="_blank" rel="noopener">打开对外分享版</a>
       <a class="btn small ghost" href="#/files">下载 Word / 模板</a>
     </div>
   </div></section>`;
@@ -574,6 +717,7 @@ function viewAbout(){
         <p><b>所有人（拿到链接）</b>：查看榜单、活动、成员名单（昵称/分组）、资料库并下载。</p>
         <p><b>管理员</b>：登录后可新增活动 / 成员、记分、上传资料。</p>
         <p><b>隐私</b>：不展示手机号、备注等敏感信息；公开积分仅用于鼓励参与。</p>
+        <p><b>人才库（参与者资料）</b>：单独存放在<b>私有仓库</b> ${CFG.owner}/${PRIV.repo}，公开页面完全读不到；只有登录管理员的浏览器能看到姓名与联系方式。</p>
         <p class="notice">数据与文件存放在团队 GitHub 仓库（<a href="https://github.com/${CFG.owner}/${CFG.repo}" target="_blank" rel="noopener">${CFG.owner}/${CFG.repo}</a>），每次保存即一次提交，可回溯。仓库为公开仓库，请勿上传含个人隐私的材料。</p>
       </div>
       <div class="reveal">
@@ -582,6 +726,7 @@ function viewAbout(){
           <li>打开 <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Fine-grained tokens</a> 新建 Token</li>
           <li>名称 <b>crzm-app-admin</b>；有效期 90 天或更长</li>
           <li>Repository access → Only select repositories → <b>${CFG.owner}/${CFG.repo}</b></li>
+          <li>Repository access 里把 <b>${CFG.owner}/${CFG.repo}</b> 和 <b>${CFG.owner}/${PRIV.repo}</b> 都选上</li>
           <li>Permissions → Contents: <b>Read and write</b></li>
           <li>生成后复制 <b>github_pat_…</b>，点右上角「管理员登录」粘贴</li>
         </ol>
@@ -589,6 +734,255 @@ function viewAbout(){
       </div>
     </div>
   </div></section>`;
+}
+
+
+/* ---------- 人才库 ---------- */
+function viewPeople(){
+  if (!IS_ADMIN) return `
+  <section class="pad" style="padding-top:140px"><div class="wrap">
+    <div class="shead"><div class="lab">PEOPLE</div><h2>人才库</h2>
+      <p>所有活动参与者的资料集中在这里，用于后续匹配。含联系方式与个人情况，仅管理员可见。</p></div>
+    <div class="locked"><b>需要管理员登录</b>
+      <p>人才库存放参与者姓名、电话、微信等个人信息，只对管理员开放；公开页面不展示任何联系方式。</p>
+      <button class="btn small" onclick="openLogin()">管理员登录</button></div>
+  </div></section>`;
+  if (!PRIV_READY) return `
+  <section class="pad" style="padding-top:140px"><div class="wrap">
+    <div class="shead"><div class="lab">PEOPLE</div><h2>人才库</h2>
+      <p>资料存放在私有仓库，需要当前 Token 有该仓库的读写权限。</p></div>
+    <div class="locked"><b>私有库未连接</b>
+      <p>请确认：① 私有仓库 <b>${CFG.owner}/${PRIV.repo}</b> 已创建；② 当前 Token 勾选了该仓库的 Contents 读写。</p>
+      <button class="btn small" onclick="retryPrivate()">重新连接</button></div>
+  </div></section>`;
+
+  const industries = uniq((PEOPLE.people||[]).map(p=>p.industry)).sort();
+  const cohorts = uniq((PEOPLE.people||[]).map(p=>p.cohort)).sort((a,b)=>parseInt(a)-parseInt(b));
+  return `
+  <section class="pad" style="padding-top:140px"><div class="wrap">
+    <div class="shead row"><div><div class="lab">PEOPLE</div><h2>人才库</h2>
+      <p>参与者资料统一归档 · 可按性别 / 年龄 / 行业 / 期数筛选，供后续匹配使用。</p></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn small ghost" onclick="exportPeople()">导出 CSV</button>
+        <button class="btn small ghost" onclick="openImportPeople()">粘贴导入</button>
+        <button class="btn small" onclick="openPersonForm()">＋ 添加</button></div></div>
+
+    <div class="toolbar">
+      <input type="text" id="pq" placeholder="搜姓名 / 公司 / 电话 / 行业" value="${esc(PF.q)}"
+        oninput="PF.q=this.value; refreshPeople()">
+      <select onchange="PF.gender=this.value; refreshPeople()">
+        <option value="">性别 · 全部</option>
+        ${['男','女'].map(g=>`<option ${PF.gender===g?'selected':''}>${g}</option>`).join('')}
+      </select>
+      <select onchange="PF.age=this.value; refreshPeople()">
+        <option value="">年龄 · 全部</option>
+        ${['18-25','26-30','31-35','36-40','41-50','51-200'].map(a=>`<option value="${a}" ${PF.age===a?'selected':''}>${a.replace('-200','+').replace('-','–')} 岁</option>`).join('')}
+      </select>
+      <select onchange="PF.industry=this.value; refreshPeople()">
+        <option value="">行业 · 全部</option>
+        ${industries.map(i=>`<option ${PF.industry===i?'selected':''}>${esc(i)}</option>`).join('')}
+      </select>
+      <select onchange="PF.cohort=this.value; refreshPeople()">
+        <option value="">期数 · 全部</option>
+        ${cohorts.map(c=>`<option ${PF.cohort===c?'selected':''}>${esc(c)}</option>`).join('')}
+      </select>
+      <span class="count" id="pcount"></span>
+    </div>
+    <div id="peopleTable">${peopleTable()}</div>
+    <p class="notice">资料仅管理员可见，存放在私有仓库 ${CFG.owner}/${PRIV.repo}；公开页面只展示活动名称与人数。</p>
+  </div></section>`;
+}
+
+function peopleTable(){
+  const rows = filteredPeople();
+  const c = document.getElementById('pcount');
+  if (c) c.textContent = `${rows.length} / ${(PEOPLE.people||[]).length} 人`;
+  if (!rows.length) return `<div class="empty"><b>没有匹配的人</b>换个筛选条件，或点右上角「＋ 添加」</div>`;
+  return `<table class="table people"><thead><tr>
+      <th>姓名 / 昵称</th><th>性别</th><th>年龄</th><th>行业</th><th>公司 · 职位</th><th>联系</th><th class="num">参与</th></tr></thead>
+    <tbody>${rows.map(p=>`<tr style="cursor:pointer" onclick="openPersonDetail('${p.id}')">
+      <td><b>${esc(p.name||pname(p))}</b>${p.name&&p.nickname&&p.nickname!==p.name?`<span class="tag">${esc(p.nickname)}</span>`:''}</td>
+      <td>${esc(p.gender||'—')}</td>
+      <td>${ageOf(p)??'—'}</td>
+      <td>${esc(p.industry||'—')}</td>
+      <td>${esc(ptitle(p)||'—')}</td>
+      <td class="small-muted">${esc(p.phone||p.wechat||'—')}</td>
+      <td class="num">${(p.activities||[]).length}</td></tr>`).join('')}
+    </tbody></table>`;
+}
+function refreshPeople(){
+  const box = document.getElementById('peopleTable');
+  if (box) box.innerHTML = peopleTable();
+  const input = document.getElementById('pq');
+  if (input && PF.q) input.value = PF.q;
+}
+async function retryPrivate(){
+  toast('正在连接私有库…');
+  const ok = await loadPrivate();
+  toast(ok ? '已连接私有库' : '仍未连上，检查仓库与 Token 权限', !ok);
+  render();
+}
+function openPersonDetail(id){
+  const p = (PEOPLE.people||[]).find(x=>x.id===id); if (!p) return;
+  const acts = (p.activities||[]).map(aid=>DATA.activities.find(a=>a.id===aid)).filter(Boolean);
+  const row = (k,v)=> v ? `<dt>${k}</dt><dd>${esc(v)}</dd>` : '';
+  openModal(`<h3>${esc(p.name||pname(p))}</h3>
+    <p class="hint">${esc([p.nickname&&p.nickname!==p.name?p.nickname:'', p.gender, ageOf(p)?ageOf(p)+' 岁':'', p.cohort?p.cohort+'期':''].filter(Boolean).join(' · '))}</p>
+    <dl class="kv">
+      ${row('电话', p.phone)}${row('微信', p.wechat)}${row('出生', p.birth)}
+      ${row('公司', p.company)}${row('职位', p.title)}${row('行业', p.industry)}
+      ${row('来源', p.source)}${row('期待收获', p.expect)}
+      ${row('参与活动', acts.map(a=>a.title).join('、'))}
+      ${row('备注', p.note)}
+    </dl>
+    ${(p.tags||[]).length?`<div class="chips" style="margin-top:10px">${p.tags.map(t=>`<span class="chip">${esc(t)}</span>`).join('')}</div>`:''}
+    <div class="person-actions">
+      <button class="btn small" onclick="openPersonForm('${p.id}')">编辑</button>
+      <button class="btn small ghost" onclick="closeModal()">关闭</button>
+    </div>`);
+}
+function openPersonForm(id){
+  const p = id ? (PEOPLE.people||[]).find(x=>x.id===id) : {gender:'', birth:'', tags:[]};
+  if (!p) return;
+  const f = (label, key, type='text', ph='') =>
+    `<label>${label}</label><input type="${type}" id="pf_${key}" value="${esc(p[key]??'')}" placeholder="${ph}">`;
+  openModal(`<h3>${id?'编辑资料':'添加参与者'}</h3>
+    <p class="hint">人才库仅管理员可见；出生年月用于算年龄，不会公开。</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 14px">
+      ${f('姓名','name')}${f('昵称','nickname')}
+      <div><label>性别</label><select id="pf_gender">
+        ${['','男','女'].map(g=>`<option ${p.gender===g?'selected':''}>${g||'—'}</option>`).join('')}</select></div>
+      <div><label>出生年月</label><input type="month" id="pf_birth" value="${esc((p.birth||'').slice(0,7))}"></div>
+      ${f('电话','phone')}${f('微信','wechat')}
+      ${f('公司','company')}${f('职位','title')}
+      ${f('行业','industry')}${f('青创期数','cohort','text','如 21')}
+    </div>
+    <label>期待收获 / 诉求</label><input type="text" id="pf_expect" value="${esc(p.expect||'')}">
+    <label>标签（逗号分隔，用于后续匹配）</label><input type="text" id="pf_tags" value="${esc((p.tags||[]).join('、'))}">
+    <label>来源</label><input type="text" id="pf_source" value="${esc(p.source||'')}">
+    <label>备注（仅管理员可见）</label><textarea id="pf_note">${esc(p.note||'')}</textarea>
+    <div class="actions"><button class="btn ghost" onclick="closeModal()">取消</button>
+      <button class="btn" onclick="savePerson('${id||''}')">保存</button></div>`);
+}
+async function savePerson(id){
+  const g = k => (document.getElementById('pf_'+k)?.value || '').trim();
+  const name = g('name') || g('nickname');
+  if (!name) return toast('至少填姓名或昵称', true);
+  const tags = g('tags').split(/[,，、]/).map(t=>t.trim()).filter(Boolean);
+  const rec = {
+    name:g('name'), nickname:g('nickname'), gender:g('gender')==='—'?'':g('gender'),
+    birth:g('birth'), phone:g('phone'), wechat:g('wechat'), company:g('company'),
+    title:g('title'), industry:g('industry'), cohort:g('cohort'), expect:g('expect'),
+    source:g('source'), tags, note:g('note')
+  };
+  if (id){
+    const p = PEOPLE.people.find(x=>x.id===id); Object.assign(p, rec);
+  } else {
+    PEOPLE.people.unshift(Object.assign({id:uid('p'), activities:[], createdAt:new Date().toISOString().slice(0,10)}, rec));
+  }
+  try{ await savePeople((id?'更新':'添加')+'人才：'+name); toast('已保存'); closeModal(); render(); }
+  catch(e){ toast('保存失败：'+e.message, true); }
+}
+function openImportPeople(){
+  openModal(`<h3>粘贴导入</h3>
+    <p class="hint">每行一人，用 Tab 或逗号分隔，顺序：姓名, 昵称, 性别, 出生年月(1995-06), 电话, 微信, 公司, 职位, 行业, 期数, 期待</p>
+    <textarea id="impPeople" style="min-height:160px" placeholder="张三,小张,男,1995-06,13800000000,zhangsan,某某公司,总经理,制造业,21,想认识同行"></textarea>
+    <div class="actions"><button class="btn ghost" onclick="closeModal()">取消</button>
+      <button class="btn" onclick="doImportPeople()">导入</button></div>`);
+}
+async function doImportPeople(){
+  const lines = (document.getElementById('impPeople').value||'').split('\n').map(l=>l.trim()).filter(Boolean);
+  if (!lines.length) return toast('没有内容', true);
+  let n = 0;
+  lines.forEach(l=>{
+    const c = l.split(/\t|,|，/).map(x=>x.trim());
+    if (!c[0] && !c[1]) return;
+    PEOPLE.people.unshift({id:uid('p'), name:c[0]||'', nickname:c[1]||'', gender:c[2]||'', birth:c[3]||'',
+      phone:c[4]||'', wechat:c[5]||'', company:c[6]||'', title:c[7]||'', industry:c[8]||'',
+      cohort:(c[9]||'').replace(/期/g,''), expect:c[10]||'', source:'粘贴导入',
+      tags:[], note:'', activities:[], createdAt:new Date().toISOString().slice(0,10)});
+    n++;
+  });
+  try{ await savePeople('批量导入 '+n+' 人'); toast('已导入 '+n+' 人'); closeModal(); render(); }
+  catch(e){ toast('保存失败：'+e.message, true); }
+}
+function exportPeople(){
+  const cols = ['name','nickname','gender','birth','phone','wechat','company','title','industry','cohort','expect','source','note'];
+  const head = ['姓名','昵称','性别','出生年月','电话','微信','公司','职位','行业','期数','期待','来源','备注'];
+  const esc2 = v => '"' + String(v??'').replace(/"/g,'""') + '"';
+  const csv = [head.map(esc2).join(',')].concat(
+    (PEOPLE.people||[]).map(p=>cols.map(k=>esc2(p[k])).join(','))).join('\n');
+  const blob = new Blob(['\ufeff'+csv], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = '人才库_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click(); URL.revokeObjectURL(a.href);
+}
+
+/* ---------- 活动参与者 / 复盘 ---------- */
+function openActivityPeople(activityId){
+  if(!guard()) return;
+  const act = DATA.activities.find(a=>a.id===activityId);
+  const picked = new Set((PEOPLE.people||[]).filter(p=>(p.activities||[]).includes(activityId)).map(p=>p.id));
+  const items = (PEOPLE.people||[]).map(p=>`<label><input type="checkbox" data-pid="${p.id}" ${picked.has(p.id)?'checked':''}>
+    <span>${esc(p.name||pname(p))}${p.company?`<span class="small-muted"> · ${esc(p.company)}</span>`:''}</span></label>`).join('');
+  openModal(`<h3>${esc(act?.title||'活动')} · 参与者</h3>
+    <p class="hint">勾选本场到场/参与的人，会记进他们的「参与活动」。</p>
+    <input type="text" id="pickSearch" placeholder="搜索姓名 / 公司" oninput="filterPick(this.value)">
+    <div class="pick" id="pickList">${items || '<div class="empty">人才库还是空的</div>'}</div>
+    <div class="actions"><button class="btn ghost" onclick="closeModal()">取消</button>
+      <button class="btn" onclick="saveActivityPeople('${activityId}')">保存</button></div>`);
+}
+function filterPick(q){
+  q = q.trim().toLowerCase();
+  document.querySelectorAll('#pickList label').forEach(el=>{
+    el.style.display = el.textContent.toLowerCase().includes(q) ? 'flex' : 'none';
+  });
+}
+async function saveActivityPeople(activityId){
+  const ids = [...document.querySelectorAll('#pickList input[type=checkbox]:checked')].map(el=>el.dataset.pid);
+  (PEOPLE.people||[]).forEach(p=>{
+    const arr = new Set(p.activities||[]);
+    if (ids.includes(p.id)) arr.add(activityId); else arr.delete(activityId);
+    p.activities = [...arr];
+  });
+  const act = DATA.activities.find(a=>a.id===activityId);
+  if (act){ act.peopleCount = ids.length; }
+  try{
+    await savePeople('更新参与者：'+(act?.title||activityId));
+    await saveData('更新活动人数');
+    toast('已保存 · '+ids.length+' 人'); closeModal(); render();
+  }catch(e){ toast('保存失败：'+e.message, true); }
+}
+function retroOf(activityId){ return (RETROS.retros||[]).find(r=>r.activityId===activityId); }
+function openRetro(activityId){
+  if(!guard()) return;
+  const act = DATA.activities.find(a=>a.id===activityId);
+  const r = retroOf(activityId) || {rating:'', attendees:'', good:'', bad:'', fix:'', next:''};
+  openModal(`<h3>复盘 · ${esc(act?.title||'活动')}</h3>
+    <p class="hint">活动后 48 小时内填完；一页纸，只写能改的。</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 14px">
+      <div><label>复盘日期</label><input type="date" id="r2_date" value="${r.date||new Date().toISOString().slice(0,10)}"></div>
+      <div><label>到场人数</label><input type="text" id="r2_att" value="${esc(r.attendees??'')}"></div>
+    </div>
+    <label>整体满意度（1–5）</label><select id="r2_rating">
+      ${['','1','2','3','4','5'].map(v=>`<option ${String(r.rating)===v?'selected':''}>${v||'—'}</option>`).join('')}</select>
+    <label>做得好的（保留）</label><textarea id="r2_good" style="min-height:70px">${esc(r.good||'')}</textarea>
+    <label>出问题 / 不舒服的地方</label><textarea id="r2_bad" style="min-height:70px">${esc(r.bad||'')}</textarea>
+    <label>下次只改这一条</label><textarea id="r2_fix" style="min-height:70px">${esc(r.fix||'')}</textarea>
+    <label>下一步 / 待办</label><textarea id="r2_next" style="min-height:70px">${esc(r.next||'')}</textarea>
+    <div class="actions"><button class="btn ghost" onclick="closeModal()">取消</button>
+      <button class="btn" onclick="saveRetro('${activityId}')">保存复盘</button></div>`);
+}
+async function saveRetro(activityId){
+  const g = id => (document.getElementById(id)?.value || '').trim();
+  let r = RETROS.retros.find(x=>x.activityId===activityId);
+  const rec = {activityId, date:g('r2_date'), attendees:g('r2_att'), rating:g('r2_rating'),
+    good:g('r2_good'), bad:g('r2_bad'), fix:g('r2_fix'), next:g('r2_next'),
+    updatedAt:new Date().toISOString().slice(0,10)};
+  if (r) Object.assign(r, rec);
+  else RETROS.retros.unshift(Object.assign({id:uid('rt'), createdAt:new Date().toISOString().slice(0,10)}, rec));
+  try{ await saveRetros('复盘：'+activityId); toast('复盘已保存'); closeModal(); render(); }
+  catch(e){ toast('保存失败：'+e.message, true); }
 }
 
 /* ================= 弹窗 ================= */
@@ -610,7 +1004,7 @@ async function doLogin(){
   if (!tk) return toast('请填写 Token', true);
   TOKEN = tk; localStorage.setItem(TOKEN_KEY, tk);
   await verifyAdmin();
-  if (IS_ADMIN){ closeModal(); render(); toast('已登录管理员'); }
+  if (IS_ADMIN){ await loadPrivate(); closeModal(); render(); toast('已登录管理员'); }
 }
 function logout(){ TOKEN=''; IS_ADMIN=false; localStorage.removeItem(TOKEN_KEY); paintAdmin(); render(); toast('已退出'); }
 $('#adminBtn').addEventListener('click', ()=> IS_ADMIN ? logout() : openLogin());
@@ -750,7 +1144,7 @@ window.addEventListener('hashchange', render);
 
 (async function boot(){
   await loadData();
-  if (TOKEN) await verifyAdmin();
+  if (TOKEN){ await verifyAdmin(); if (IS_ADMIN) await loadPrivate(); }
   paintAdmin();
   render();
 })();
